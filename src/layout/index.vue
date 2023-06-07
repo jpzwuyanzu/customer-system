@@ -1,6 +1,6 @@
 <template>
   <a-layout>
-    <a-layout-header :style="topHeaderStyle">头部登录用户信息aaa啊啊    <el-button type="success">Success</el-button>
+    <a-layout-header :style="topHeaderStyle">头部登录用户信息 <el-button type="success">Success</el-button>
     </a-layout-header>
     <a-layout>
       <a-layout-sider :style="siderStyle">

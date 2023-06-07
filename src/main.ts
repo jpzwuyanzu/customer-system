@@ -17,4 +17,3 @@ const app = createApp(App);
 app.use(ElementPlus)
 app.use(pinia)
 app.use(router).use(Antd).mount('#app')
-
