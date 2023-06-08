@@ -31,29 +31,33 @@
       </el-menu>
     </a-layout-header>
 
-
     <a-layout>
       <!-- <a-layout-sider :style="siderStyle">
         <LeftSide />
       </a-layout-sider> -->
-      <a-layout-sider>
+      <el-scrollbar :wrap-style="{width:200+'px'}">
         <LeftSide />
-      </a-layout-sider>
+      </el-scrollbar>
       <a-layout>
-        <a-layout-header :style="headerStyle">聊天窗头部信息</a-layout-header>
-        <a-layout-content :style="contentStyle">
-          <!-- 路由缓存需要缓存的组件 -->
-          <router-view v-slot="{ Component }" :key="$route.fullPath">
-            <Transition name="slide-fade" mode="out-in" appear>
-              <keep-alive>
-                <component :is="Component" :key="$route.name" v-if="$route.meta.keepalive" />
-              </keep-alive>
-            </Transition>
-            <Transition name="slide-fade" mode="out-in" appear>
-              <component :is="Component" :key="$route.name" v-if="!$route.meta.keepalive" />
-            </Transition>
-          </router-view>
-        </a-layout-content>
+        <a-layout-header :style="headerStyle">
+          聊天窗头部信息
+        </a-layout-header>
+
+        <el-scrollbar>
+          <a-layout-content :style="contentStyle">
+            <!-- 路由缓存需要缓存的组件 -->
+            <router-view v-slot="{ Component }" :key="$route.fullPath">
+              <Transition name="slide-fade" mode="out-in" appear>
+                <keep-alive>
+                  <component :is="Component" :key="$route.name" v-if="$route.meta.keepalive" />
+                </keep-alive>
+              </Transition>
+              <Transition name="slide-fade" mode="out-in" appear>
+                <component :is="Component" :key="$route.name" v-if="!$route.meta.keepalive" />
+              </Transition>
+            </router-view>
+          </a-layout-content>
+        </el-scrollbar>
         <a-layout-footer :style="footerStyle">底部输入框</a-layout-footer>
       </a-layout>
       <a-layout-sider :style="siderStyle">右侧联系人详细信息占位</a-layout-sider>
@@ -91,11 +95,8 @@
   };
 
   const contentStyle: any = {
-    textAlign: 'center',
-    minHeight: 120,
-    lineHeight: '120px',
-    color: '#fff',
-    backgroundColor: '#108ee9',
+    color: '#000',
+    backgroundColor: '#EFF2F9',
   };
 
   const siderStyle: any = {
