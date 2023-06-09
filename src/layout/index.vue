@@ -59,6 +59,7 @@
           </a-layout-content>
         </el-scrollbar>
         <a-layout-footer :style="footerStyle">底部输入框</a-layout-footer>
+        
       </a-layout>
       <a-layout-sider :style="siderStyle">右侧联系人详细信息占位</a-layout-sider>
     </a-layout>
