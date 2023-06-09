@@ -37,20 +37,20 @@
           <el-image style="width: 35px;" src="/src/assets/images/left_nav/1.png" fit="cover" />
         </div>
         <div class="mb40">
-          <el-image style="width: 35px;" src="/src/assets/images/left_nav/2.png" fit="cover" />
+          <el-image style="width: 35px;" src="/src/assets/images/left_nav/2.png" fit="cover" alt="消息通知"  />
         </div>
         <div class="mb40">
-          <el-image style="width: 35px;" src="/src/assets/images/left_nav/3.png" fit="cover" />
+          <el-image style="width: 35px;" src="/src/assets/images/left_nav/3.png" fit="cover" alt="日间与夜间模式的切换" />
         </div>
         <div class="mb40">
-          <el-image style="width: 35px;" src="/src/assets/images/left_nav/4.png" fit="cover" />
+          <el-image style="width: 35px;" src="/src/assets/images/left_nav/4.png" fit="cover" alt="设置" />
         </div>
         <div class="my_avatar">
           <el-avatar shape="square" :size="35"
             src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
         </div>
       </div>
-     
+
       <div style="width: 252px;" class="bgfff">
         <LeftSide />
       </div>
@@ -58,7 +58,17 @@
 
       <a-layout>
         <a-layout-header :style="headerStyle">
-          聊天窗头部信息
+          <div class="between">
+            <div class="rowC">
+              <el-avatar :size="40" class="mr10"
+                src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
+              <div class="">
+                <div class="f14">当幸福来敲门</div>
+                <div class="f12 zycr">上次在线5小时前</div>
+              </div>
+            </div>
+            <el-image style="width: 30px;" src="/src/assets/images/Calendar.png" fit="cover" />
+          </div>
         </a-layout-header>
 
         <el-scrollbar>
@@ -76,7 +86,18 @@
             </router-view>
           </a-layout-content>
         </el-scrollbar>
-        <a-layout-footer :style="footerStyle">底部输入框</a-layout-footer>
+
+        <a-layout-footer :style="footerStyle">
+          <div class="between">
+            <el-image style="width:30px;" class="mr10" src="/src/assets/images/quickReply.png" fit="cover" />
+            <div class="between borr100 w mr10"
+              style="background-color: rgba(188, 189, 194, 0.2);padding:0px 15px 0px 20px;">
+              <input placeholder="输入消息" class="not_input_css w" style="height:40px;" />
+              <el-image style="width: 30px;" src="/src/assets/images/expression.png" fit="cover" />
+            </div>
+            <el-image style="width: 30px;" src="/src/assets/images/send.png" fit="cover" />
+          </div>
+        </a-layout-footer>
 
       </a-layout>
       <a-layout-sider :style="siderStyle">右侧联系人详细信息占位</a-layout-sider>
@@ -88,9 +109,11 @@
   // import { useRoute } from 'vue-router'
   // import SideBar from "./sideBar.vue";
   import LeftSide from './LeftSide.vue'
-  import type { CSSProperties } from 'vue';
+  // import type { CSSProperties } from 'vue';
 
   const activeIndex = ref('1')
+
+
   const handleSelect = (key: string, keyPath: string[]) => {
     console.log(key, keyPath)
   }
@@ -105,12 +128,11 @@
     backgroundColor: '#108ee9',
   };
   const headerStyle: any = {
-    textAlign: 'center',
-    color: '#fff',
+    color: '#333',
     height: 64,
-    paddingInline: 50,
-    lineHeight: '64px',
-    backgroundColor: '#7dbcea',
+    lineHeight: '1.6',
+    backgroundColor: '#fff',
+    padding: '10px 20px',
   };
 
   const contentStyle: any = {
@@ -126,9 +148,9 @@
   };
 
   const footerStyle: any = {
-    textAlign: 'center',
-    color: '#fff',
-    backgroundColor: '#7dbcea',
+    color: '#333',
+    backgroundColor: '#fff',
+    padding: '10px 20px',
   };
 </script>
 <style lang="scss" scoped>
