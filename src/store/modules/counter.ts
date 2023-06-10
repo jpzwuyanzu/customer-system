@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
-import { setStorage, setCookieItem } from '@/utils/common'
+import { getCookieItem, setCookieItem } from '@/utils/common'
 const useCounterStore = defineStore('counter', {
     persist: true,
     state: () => {
         return {
             count: 13,
-            themeMode: "sun", //sun 日光模式 moon 月光模式
+            themeMode: getCookieItem('themeMode') ? false : getCookieItem('themeMode'), //true 月光模式  false 日光模式
         }
     },
     actions: {
@@ -13,12 +13,12 @@ const useCounterStore = defineStore('counter', {
             this.count++
         },
         switch_themeMode() {
-            if (this.themeMode == 'sun') {
-                this.themeMode = 'moon'
+            if (this.themeMode) {
+                this.themeMode = false//  日光模式
                 setCookieItem('themeMode', this.themeMode)
                 return this.themeMode
             } else {
-                this.themeMode = 'sun'  //日光模式
+                this.themeMode = true // 月光模式 
                 setCookieItem('themeMode', this.themeMode)
                 return this.themeMode
             }

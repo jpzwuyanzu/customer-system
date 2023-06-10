@@ -1,5 +1,5 @@
 <template>
-  <a-layout>
+  <a-layout :class="themeMode?'zt_night':''">
     <!-- <a-layout-header :style="topHeaderStyle">
       <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false"
         @select="handleSelect">
@@ -29,7 +29,6 @@
         </el-sub-menu>
       </el-menu>
     </a-layout-header> -->
-
     <a-layout>
       <div class="nav_left">
         <!-- 最左边的导航栏 -->
@@ -40,8 +39,8 @@
           <el-image style="width: 35px;" src="/src/assets/images/left_nav/2.png" fit="cover" alt="消息通知" />
         </div>
         <div class="mb40">
-          {{themeMode}}
-          <el-image style="width: 35px;" src="/src/assets/images/left_nav/3.png" fit="cover" alt="日间与夜间模式的切换" @click="switch_themeMode" />
+          <el-image style="width: 35px;" src="/src/assets/images/left_nav/3.png" fit="cover" alt="日间与夜间模式的切换"
+            @click="switch_themeMode" />
         </div>
         <div class="mb40">
           <el-image style="width: 35px;" src="/src/assets/images/left_nav/4.png" fit="cover" alt="设置" />
@@ -52,11 +51,11 @@
         </div>
       </div>
 
-      <div style="width: 252px;" class="bgfff">
-        <LeftSide />
+      <div style="width: 252px;" class="LeftSide_bgfff">
+        <LeftSide style="box-shadow: 23.9px 5.6px 50px 0 rgba(0, 0, 0, 0.02), 35.1px 0 70px 0 rgba(86, 128, 248, 0.05), 14px 0 25px 0 rgba(86, 128, 248, 0.03);" />
       </div>
       <a-layout>
-        <a-layout-header :style="headerStyle">
+        <a-layout-header :style="headerStyle" class="cn_color">
           <div class="between">
             <div class="rowC">
               <el-avatar :size="40" class="mr10"
@@ -71,7 +70,7 @@
         </a-layout-header>
 
         <el-scrollbar>
-          <a-layout-content :style="contentStyle">
+          <a-layout-content class="cn_color">
             <!-- 路由缓存需要缓存的组件 -->
             <router-view v-slot="{ Component }" :key="$route.fullPath">
               <Transition name="slide-fade" mode="out-in" appear>
@@ -86,12 +85,12 @@
           </a-layout-content>
         </el-scrollbar>
 
-        <a-layout-footer :style="footerStyle">
+        <a-layout-footer :style="footerStyle" class="bgfff">
           <div class="between">
             <el-image style="width:30px;" class="mr10" src="/src/assets/images/quickReply.png" fit="cover" />
-            <div class="between borr100 w mr10"
-              style="background-color: rgba(188, 189, 194, 0.2);padding:0px 15px 0px 20px;">
-              <input placeholder="输入消息" class="not_input_css w" style="height:40px;" />
+            <div class="ztInputDiv">
+              <!-- <input placeholder="输入消息" class="not_input_css w" style="height:40px;" /> -->
+              <el-input v-model="input1" placeholder="输入消息" clearable :minlength="3200" />
               <el-image style="width: 30px;" src="/src/assets/images/expression.png" fit="cover" />
             </div>
             <el-image style="width: 30px;" src="/src/assets/images/send.png" fit="cover" />
@@ -106,33 +105,31 @@
 <script setup lang="ts">
   import { ref, onMounted } from "vue";
   import useStore from '@/store';
+  import LeftSide from './LeftSide.vue'
   const Store = useStore()
-
   // import { useRoute } from 'vue-router'
   // import SideBar from "./sideBar.vue";
   // import type { CSSProperties } from 'vue';
+  const mode_value = ref(false)
 
-  import LeftSide from './LeftSide.vue'
   const activeIndex = ref('1')
-  const themeMode = ref < string > ('')
+  const input1 = ref()
 
+
+  var themeMode = ref(Store.counter.themeMode)
 
   const switch_themeMode = () => {
     Store.counter.switch_themeMode()
     themeMode.value = Store.counter.themeMode
   }
-  
+
   onMounted(() => {
-    themeMode.value = Store.counter.themeMode
-    
+
   })
 
-
-  const handleSelect = (key: string, keyPath: string[]) => {
-    console.log(key, keyPath)
-  }
-
-  const mode_value = ref(false)
+  // const handleSelect = (key: string, keyPath: string[]) => {
+  //   console.log(key, keyPath)
+  // }
 
   const topHeaderStyle: any = {
     textAlign: 'center',
@@ -142,16 +139,9 @@
     backgroundColor: '#108ee9',
   };
   const headerStyle: any = {
-    color: '#333',
     height: 64,
     lineHeight: '1.6',
-    backgroundColor: '#fff',
     padding: '10px 20px',
-  };
-
-  const contentStyle: any = {
-    color: '#000',
-    backgroundColor: '#EFF2F9',
   };
 
   const siderStyle: any = {
@@ -162,14 +152,82 @@
   };
 
   const footerStyle: any = {
-    color: '#333',
-    backgroundColor: '#fff',
     padding: '10px 20px',
   };
 </script>
 
 
 <style lang="scss" scoped>
+  .ztInputDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(188, 189, 194, 0.2);
+    padding: 0px 15px 0px 20px;
+    border-radius: 100px;
+    width: 100%;
+    margin-right: 10px;
+
+    ::v-deep .el-input__wrapper {
+      background: none;
+      border: 0;
+      height: 40px;
+      box-shadow: 0 0 0 0px var(--el-input-border-color, var(--el-border-color)) inset;
+    }
+  }
+
+  .LeftSide_bgfff {
+    background-color: #fff;
+  }
+
+  .cn_color {
+    background-color: #f7f8fc;
+    overflow-x: hidden;
+  }
+
+  .zt_night {
+    .nav_left {
+      background-color: #1d1e22;
+      color: #ffffff;
+    }
+
+ 
+    .bgfff {
+      background-color: #1d1e22;
+      color: #ffffff;
+    }
+
+    .LeftSide_bgfff {
+      background-color: #222328;
+      color: #ffffff;
+    }
+
+    .cn_color {
+      /* color: #fff; */
+      background-color: #1d1e22;
+      color: #ffffff;
+    }
+
+
+    .ztInputDiv {
+      background-color: #141517;
+    }
+
+    ::v-deep .el-input__wrapper {
+      background-color: #141517;
+      border: 0;
+      box-shadow: 0 0 0 0px var(--el-input-border-color, var(--el-border-color)) inset;
+    }
+
+    ::v-deep .el-input__inner {
+      color: #ffffff;
+    }
+  }
+
+
+
+
+
   .nav_left {
     text-align: center;
     position: relative;

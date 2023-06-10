@@ -6,7 +6,7 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import router from "./router/index";
 import { createPinia } from "pinia";
 import 'ant-design-vue/dist/reset.css';
-import './style.css'
+import './style.scss'
 import App from './App.vue'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 const pinia = createPinia()

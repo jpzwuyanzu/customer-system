@@ -4,6 +4,7 @@ body {
   margin: 0;
   width: 100%;
   height: 100%;
+  color: #0d1c2e;
 }
 
 #app {
@@ -195,7 +196,9 @@ body {
 .ml10 {
   margin-left: 10px;
 }
-
+.cr707c97{
+  color: #707c97;
+}
 
 .crfff {
   color: #fff;
@@ -317,6 +320,9 @@ body {
 .borr100 {
   border-radius: 100px;
 }
+.borr {
+  border-radius: 100%;
+}
 
 .not_input_css {
   background: none;
@@ -404,6 +410,13 @@ body {
 .zycr {
   color: #296dfe;
 }
-.zybg{
+
+.zybg {
   background: #296dfe;
+}
+
+.zt_night {
+  background: #1d1e22  !important;
+  background-color: #1d1e22 !important;
+  color: #ffffff  !important;
 }
