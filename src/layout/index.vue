@@ -37,10 +37,11 @@
           <el-image style="width: 35px;" src="/src/assets/images/left_nav/1.png" fit="cover" />
         </div>
         <div class="mb40">
-          <el-image style="width: 35px;" src="/src/assets/images/left_nav/2.png" fit="cover" alt="消息通知"  />
+          <el-image style="width: 35px;" src="/src/assets/images/left_nav/2.png" fit="cover" alt="消息通知" />
         </div>
         <div class="mb40">
-          <el-image style="width: 35px;" src="/src/assets/images/left_nav/3.png" fit="cover" alt="日间与夜间模式的切换" />
+          {{themeMode}}
+          <el-image style="width: 35px;" src="/src/assets/images/left_nav/3.png" fit="cover" alt="日间与夜间模式的切换" @click="switch_themeMode" />
         </div>
         <div class="mb40">
           <el-image style="width: 35px;" src="/src/assets/images/left_nav/4.png" fit="cover" alt="设置" />
@@ -54,8 +55,6 @@
       <div style="width: 252px;" class="bgfff">
         <LeftSide />
       </div>
-
-
       <a-layout>
         <a-layout-header :style="headerStyle">
           <div class="between">
@@ -105,13 +104,28 @@
   </a-layout>
 </template>
 <script setup lang="ts">
-  import { ref } from "vue";
+  import { ref, onMounted } from "vue";
+  import useStore from '@/store';
+  const Store = useStore()
+
   // import { useRoute } from 'vue-router'
   // import SideBar from "./sideBar.vue";
-  import LeftSide from './LeftSide.vue'
   // import type { CSSProperties } from 'vue';
 
+  import LeftSide from './LeftSide.vue'
   const activeIndex = ref('1')
+  const themeMode = ref < string > ('')
+
+
+  const switch_themeMode = () => {
+    Store.counter.switch_themeMode()
+    themeMode.value = Store.counter.themeMode
+  }
+  
+  onMounted(() => {
+    themeMode.value = Store.counter.themeMode
+    
+  })
 
 
   const handleSelect = (key: string, keyPath: string[]) => {
@@ -153,6 +167,8 @@
     padding: '10px 20px',
   };
 </script>
+
+
 <style lang="scss" scoped>
   .nav_left {
     text-align: center;

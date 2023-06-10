@@ -1,5 +1,5 @@
 import Cookie from 'js-cookie'
- import dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 export function setCookieItem (key: string, value: string) {
     Cookie.set(key, value)

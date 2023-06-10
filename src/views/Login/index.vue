@@ -36,7 +36,7 @@
   import { reactive, toRaw, ref } from 'vue'
   import { Form, message } from 'ant-design-vue';
   import type { ILogin } from "./../../types/interface";
-  import { setStorage, setCookieItem } from '../../utils/common'
+  import { setStorage, setCookieItem } from '@/utils/common'
   import { useRouter } from 'vue-router'
   const appRouter = useRouter();
   const useForm = Form.useForm;
