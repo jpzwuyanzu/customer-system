@@ -1,127 +1,126 @@
 <template>
-  <a-layout :class="themeMode?'zt_night':''">
-    <!-- <a-layout-header :style="topHeaderStyle">
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" :ellipsis="false"
-        @select="handleSelect">
-        <el-menu-item>
-          LOGO
-        </el-menu-item>
-        <div class="flex-grow" />
-        <el-menu-item>
-          <el-icon>
-            <Moon />
-          </el-icon>
-          <span style="margin:0 10px 0 0;">
-            夜间模式
-          </span>
-          <el-switch v-model="mode_value" :active-icon="Check" :inactive-icon="Close" />
-        </el-menu-item>
-        <el-sub-menu>
-          <template #title>
-            <el-avatar :size="40" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
-            <span style="margin-left: 10px;">
-              jeehom
-            </span>
+  <a-layout class="row" :class="themeMode?'zt_night':''">
+    <div class="nav_left">
+      <!-- 最左边的导航栏 -->
+      <div class="mb40">
+        <el-image style="width: 35px;" src="/src/assets/images/left_nav/1.png" fit="cover" />
+      </div>
+      <div class="mb40">
+        <el-image style="width: 35px;" src="/src/assets/images/left_nav/2.png" fit="cover" alt="消息通知" />
+      </div>
+      <div class="mb40">
+        <el-image style="width: 35px;" src="/src/assets/images/left_nav/3.png" fit="cover" alt="日间与夜间模式的切换"
+          @click="switch_themeMode" />
+      </div>
+      <div class="mb40">
+        <el-image style="width: 35px;" src="/src/assets/images/left_nav/4.png" fit="cover" alt="设置" />
+      </div>
+      <div class="my_avatar">
+        <el-popover placement="right" :width="130" trigger="click" :popper-style="zdy_popover">
+          <template #reference>
+            <el-avatar shape="square" :size="35"
+              src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
           </template>
-          <el-menu-item>账号一</el-menu-item>
-          <el-menu-item>账号二</el-menu-item>
-          <el-menu-item>账号三</el-menu-item>
-        </el-sub-menu>
-      </el-menu>
-    </a-layout-header> -->
+          <div class="p10 cr707c97">
+            <div class="mb10 rowC crpr">
+              <el-icon class="mr10">
+                <Switch />
+              </el-icon>切换账号
+            </div>
+            <div class="rowC crpr">
+              <el-image class="mr10" style="width:20px;" src="/src/assets/images/power.png" fit="cover" alt="设置" />
+              登出
+            </div>
+          </div>
+        </el-popover>
+      </div>
+    </div>
+    <div style="width: 252px;" class="LeftSide_bgfff">
+      <LeftSide />
+    </div>
     <a-layout>
-      <div class="nav_left">
-        <!-- 最左边的导航栏 -->
-        <div class="mb40">
-          <el-image style="width: 35px;" src="/src/assets/images/left_nav/1.png" fit="cover" />
-        </div>
-        <div class="mb40">
-          <el-image style="width: 35px;" src="/src/assets/images/left_nav/2.png" fit="cover" alt="消息通知" />
-        </div>
-        <div class="mb40">
-          <el-image style="width: 35px;" src="/src/assets/images/left_nav/3.png" fit="cover" alt="日间与夜间模式的切换"
-            @click="switch_themeMode" />
-        </div>
-        <div class="mb40">
-          <el-image style="width: 35px;" src="/src/assets/images/left_nav/4.png" fit="cover" alt="设置" />
-        </div>
-        <div class="my_avatar">
-          <el-avatar shape="square" :size="35"
-            src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
-        </div>
-      </div>
-
-      <div style="width: 252px;" class="LeftSide_bgfff">
-        <LeftSide style="box-shadow: 23.9px 5.6px 50px 0 rgba(0, 0, 0, 0.02), 35.1px 0 70px 0 rgba(86, 128, 248, 0.05), 14px 0 25px 0 rgba(86, 128, 248, 0.03);" />
-      </div>
-      <a-layout>
-        <a-layout-header :style="headerStyle" class="cn_color">
-          <div class="between">
-            <div class="rowC">
-              <el-avatar :size="40" class="mr10"
-                src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
-              <div class="">
-                <div class="f14">当幸福来敲门</div>
-                <div class="f12 zycr">上次在线5小时前</div>
-              </div>
+      <a-layout-header :style="headerStyle" class="cn_color">
+        <div class="between">
+          <div class="rowC">
+            <el-avatar :size="40" class="mr10"
+              src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
+            <div class="">
+              <div class="f14">当幸福来敲门</div>
+              <div class="f12 zycr">上次在线5小时前</div>
             </div>
-            <el-image style="width: 30px;" src="/src/assets/images/Calendar.png" fit="cover" />
           </div>
-        </a-layout-header>
-
-        <el-scrollbar>
-          <a-layout-content class="cn_color">
-            <!-- 路由缓存需要缓存的组件 -->
-            <router-view v-slot="{ Component }" :key="$route.fullPath">
-              <Transition name="slide-fade" mode="out-in" appear>
-                <keep-alive>
-                  <component :is="Component" :key="$route.name" v-if="$route.meta.keepalive" />
-                </keep-alive>
-              </Transition>
-              <Transition name="slide-fade" mode="out-in" appear>
-                <component :is="Component" :key="$route.name" v-if="!$route.meta.keepalive" />
-              </Transition>
-            </router-view>
-          </a-layout-content>
-        </el-scrollbar>
-
-        <a-layout-footer :style="footerStyle" class="bgfff">
-          <div class="between">
-            <el-image style="width:30px;" class="mr10" src="/src/assets/images/quickReply.png" fit="cover" />
-            <div class="ztInputDiv">
-              <!-- <input placeholder="输入消息" class="not_input_css w" style="height:40px;" /> -->
-              <el-input v-model="input1" placeholder="输入消息" clearable :minlength="3200" />
-              <el-image style="width: 30px;" src="/src/assets/images/expression.png" fit="cover" />
-            </div>
-            <el-image style="width: 30px;" src="/src/assets/images/send.png" fit="cover" />
+          <el-image style="width: 30px;" src="/src/assets/images/Calendar.png" fit="cover" />
+        </div>
+      </a-layout-header>
+      <el-scrollbar>
+        <a-layout-content class="cn_color">
+          <!-- 路由缓存需要缓存的组件 -->
+          <router-view v-slot="{ Component }" :key="$route.fullPath">
+            <Transition name="slide-fade" mode="out-in" appear>
+              <keep-alive>
+                <component :is="Component" :key="$route.name" v-if="$route.meta.keepalive" />
+              </keep-alive>
+            </Transition>
+            <Transition name="slide-fade" mode="out-in" appear>
+              <component :is="Component" :key="$route.name" v-if="!$route.meta.keepalive" />
+            </Transition>
+          </router-view>
+        </a-layout-content>
+      </el-scrollbar>
+      <a-layout-footer :style="footerStyle" class="bgfff">
+        <div class="between">
+          <el-image style="width:30px;" class="mr10" src="/src/assets/images/quickReply.png" fit="cover" />
+          <div class="ztInputDiv">
+            <!-- <input placeholder="输入消息" class="not_input_css w" style="height:40px;" /> -->
+            <el-input v-model="input1" placeholder="输入消息" clearable :minlength="3200" />
+            <el-image style="width: 30px;" src="/src/assets/images/expression.png" fit="cover" />
           </div>
-        </a-layout-footer>
-
-      </a-layout>
-      <a-layout-sider :style="siderStyle">右侧联系人详细信息占位</a-layout-sider>
+          <el-image style="width: 30px;" src="/src/assets/images/send.png" fit="cover" />
+        </div>
+      </a-layout-footer>
     </a-layout>
+    <div class="right_cn" v-show="right_type">
+      <RightSide/>
+
+    </div>
   </a-layout>
 </template>
 <script setup lang="ts">
   import { ref, onMounted } from "vue";
   import useStore from '@/store';
   import LeftSide from './LeftSide.vue'
+  import RightSide from './RightSide.vue'
   const Store = useStore()
   // import { useRoute } from 'vue-router'
   // import SideBar from "./sideBar.vue";
   // import type { CSSProperties } from 'vue';
   const mode_value = ref(false)
-
+  const right_type = ref(true)
   const activeIndex = ref('1')
   const input1 = ref()
-
-
   var themeMode = ref(Store.counter.themeMode)
-
+  var zdy_popover = ref({})
   const switch_themeMode = () => {
     Store.counter.switch_themeMode()
     themeMode.value = Store.counter.themeMode
+    zdy_popoverf()
   }
+  const zdy_popoverf = () => {
+    if (themeMode.value) {
+      zdy_popover.value = {
+        backgroundColor: '#1D1E22',
+        border: 0,
+        minWidth: '0',
+      }
+    } else {
+      zdy_popover.value = {
+        backgroundColor: '#fff',
+        border: 0,
+        minWidth: '0',
+      }
+    }
+  }
+  zdy_popoverf()
 
   onMounted(() => {
 
@@ -146,9 +145,6 @@
 
   const siderStyle: any = {
     textAlign: 'center',
-    lineHeight: '120px',
-    color: '#fff',
-    backgroundColor: '#3ba0e9',
   };
 
   const footerStyle: any = {
@@ -176,8 +172,14 @@
     }
   }
 
+  .right_cn {
+    background-color: #fff;
+    width: 300px;
+  }
+
   .LeftSide_bgfff {
     background-color: #fff;
+    box-shadow: 23.9px 5.6px 50px 0 rgba(0, 0, 0, 0.02), 35.1px 0 70px 0 rgba(86, 128, 248, 0.05), 14px 0 25px 0 rgba(86, 128, 248, 0.03);
   }
 
   .cn_color {
@@ -185,13 +187,17 @@
     overflow-x: hidden;
   }
 
+
   .zt_night {
     .nav_left {
       background-color: #1d1e22;
       color: #ffffff;
     }
 
- 
+    .right_cn {
+      background-color: #222328;
+    }
+
     .bgfff {
       background-color: #1d1e22;
       color: #ffffff;
