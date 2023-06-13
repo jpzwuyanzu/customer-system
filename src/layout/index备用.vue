@@ -3,24 +3,24 @@
     <div class="nav_left">
       <!-- 最左边的导航栏 -->
       <div class="mb40">
-        <el-image class="crpr" style="width: 35px;" src="/src/assets/images/left_nav/1.png" fit="cover" />
+        <el-image style="width: 35px;" src="/src/assets/images/left_nav/1.png" fit="cover" />
       </div>
       <div class="mb40">
-        <el-image class="crpr" style="width: 35px;" src="/src/assets/images/left_nav/2.png" fit="cover" alt="消息通知" />
+        <el-image style="width: 35px;" src="/src/assets/images/left_nav/2.png" fit="cover" alt="消息通知" />
       </div>
       <div class="mb40">
-        <el-image class="crpr" style="width: 35px;" v-show="!themeMode" src="/src/assets/images/left_nav/3.png"
-          fit="cover" alt="日间与夜间模式的切换" @click="switch_themeMode" />
-        <el-image class="crpr" style="width: 35px;" v-show="themeMode" src="/src/assets/images/left_nav/3_on.png"
-          fit="cover" alt="日间与夜间模式的切换" @click="switch_themeMode" />
+        <el-image style="width: 35px;" v-show="!themeMode" src="/src/assets/images/left_nav/3.png" fit="cover"
+          alt="日间与夜间模式的切换" @click="switch_themeMode" />
+        <el-image style="width: 35px;" v-show="themeMode" src="/src/assets/images/left_nav/3_on.png" fit="cover"
+          alt="日间与夜间模式的切换" @click="switch_themeMode" />
       </div>
       <div class="mb40">
-        <el-image class="crpr" style="width: 35px;" src="/src/assets/images/left_nav/4.png" fit="cover" alt="设置" />
+        <el-image style="width: 35px;" src="/src/assets/images/left_nav/4.png" fit="cover" alt="设置" />
       </div>
       <div class="my_avatar">
-        <el-popover placement="right" :width="130" trigger="click" :show-arrow="false" :popper-style="zdy_popover">
+        <el-popover placement="right" :width="130" trigger="click" :popper-style="zdy_popover">
           <template #reference>
-            <el-avatar shape="square" class="crpr" :size="35"
+            <el-avatar shape="square" :size="35"
               src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
           </template>
           <div class="p10 cr707c97">
@@ -29,8 +29,8 @@
                 <Switch />
               </el-icon>切换账号
             </div>
-            <div class="rowC crpr" @click="goout">
-              <el-image class="mr10" style="width:20px;" src="/src/assets/images/power.png" fit="cover" />
+            <div class="rowC crpr">
+              <el-image class="mr10" style="width:20px;" src="/src/assets/images/power.png" fit="cover" alt="设置" />
               登出
             </div>
           </div>
@@ -73,60 +73,9 @@
       <a-layout-footer :style="footerStyle" class="bgfff">
         <div class="between">
           <div>
-            <el-popover placement="top-end" :show-arrow="false" offset="25" :visible="template_visible" :width="50+'%'"
-              trigger="click" :popper-style="zdy_popover">
-              <template #reference>
-                <el-image style="width:30px;" @click="template_visible=!template_visible" class="mr10 crpr"
-                  src="/src/assets/images/quickReply.png" fit="cover" />
-              </template>
-              <div class="p10 pb0">
-                <div class="between mb15">
-                  <div class="fw f16">
-                    模版列表
-                  </div>
-                  <div>
-                    <el-icon class="crpr" size="25" @click="template_visible=!template_visible">
-                      <Close />
-                    </el-icon>
-                  </div>
-                </div>
-                <div class="between">
-                  <div class="ztInputDiv" style="border-radius:8px;width:90%;">
-                    <el-input v-model="input1" placeholder="输入内容" clearable :minlength="3200" />
-                  </div>
-                  <el-button type="primary" color="#296dfe" class="f14">新增</el-button>
-                </div>
-                <div>
-                  <div class="f16 mb15 cr707c97 fw" style="border-bottom: 1px solid #707c97;padding:15px 0;">
-                    模版内容
-                  </div>
-                  <el-scrollbar class="w" height="50vh">
-                    <div class="template_list" v-for="(item,index) in 100" :key="index">
-                      <div class="mr10 tc" style="width:40px;">
-                        {{index+1}}
-                      </div>
-                      <div class="w mr20">
-                        <el-input class="w bgfff" v-model="textarea" :rows="2" type="textarea" placeholder="请输入内容" />
-                      </div>
-                      <div>
-                        <div class="mb10">
-                          <el-button type="success" size="small" class="f14">保存</el-button>
-                        </div>
-                        <div>
-                          <el-button type="primary" @click="template_del" size="small" color="#ff3366"
-                            class="f14">删除</el-button>
-                        </div>
-                      </div>
-                    </div>
-                  </el-scrollbar>
-
-                </div>
-              </div>
-            </el-popover>
+            <el-image style="width:30px;" @click="dialogTableVisible=true" class="mr10" src="/src/assets/images/quickReply.png"
+            fit="cover" />
           </div>
-
-
-
           <div class="ztInputDiv">
             <!-- <input placeholder="输入消息" class="not_input_css w" style="height:40px;" /> -->
             <el-input v-model="input1" placeholder="输入消息" clearable :minlength="3200" />
@@ -140,23 +89,74 @@
       <RightSide />
     </div>
   </a-layout>
+
+
+  <el-dialog v-model="dialogTableVisible" width="65%" :modal="false" :draggable="true" :show-close="false" top="20vh">
+      <div class="p10 pb0">
+        <div class="fw f16 mb15">
+          模版列表
+        </div>
+        <div class="between">
+          <div class="ztInputDiv" style="border-radius:8px;width:90%;">
+            <el-input v-model="input1" placeholder="输入内容" clearable :minlength="3200" />
+          </div>
+          <el-button type="primary" color="#296dfe" class="f14">新增</el-button>
+        </div>
+        <div>
+          <div class="f16 mb15 cr707c97 fw" style="border-bottom: 1px solid #707c97;padding:15px 0;">
+            模版内容
+          </div>
+          <div class="template_list" v-for="(item,index) in 6" :key="index">
+            <div class="mr20">
+              {{index+1}}
+            </div>
+            <div class="w mr20">
+              <el-input class="w"
+              v-model="textarea"
+              :rows="2"
+              type="textarea"
+              placeholder="请输入内容"
+            />
+            </div>
+            <div>
+              <div class="mb10">
+                <el-button type="success" size="small" class="f14">保存</el-button>
+              </div>
+              <div>
+                <el-popconfirm title="确认要删除吗？">
+                  <template #reference>
+                    <el-button type="primary" size="small" color="#ff3366" class="f14">删除</el-button>
+                  </template>
+                </el-popconfirm>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </el-dialog>
+ 
+
+
 </template>
 <script setup lang="ts">
   import { ref, onMounted } from "vue";
   import useStore from '@/store';
   import LeftSide from './LeftSide.vue'
   import RightSide from './RightSide.vue'
-  import { removeStorage } from '@/utils/common'
+
   import { h } from 'vue'
-  import { ElNotification, ElMessageBox } from 'element-plus'
-  import { useRouter } from 'vue-router'
-  const appRouter = useRouter();
+  import { ElNotification } from 'element-plus'
+
   const Store = useStore()
+  // import { useRoute } from 'vue-router'
   // import SideBar from "./sideBar.vue";
   // import type { CSSProperties } from 'vue';
   const mode_value = ref(false)
   const right_type = ref(true)
-  const template_visible = ref(false)
+  const dialogTableVisible = ref(false)
+  
+
   const activeIndex = ref('1')
   const input1 = ref()
   var themeMode = ref(Store.counter.themeMode)
@@ -183,43 +183,6 @@
     }
   }
 
-  const template_del = () => {
-    //模版列表删除
-    ElMessageBox({
-      title: '提示',
-      message: '您确认要删除该条数据吗？',
-      showCancelButton: true,
-      confirmButtonText: '确认',
-      cancelButtonText: '取消',
-      beforeClose: (action, instance, done) => {
-        if (action === 'confirm') {
-          done()
-        } else {
-          done()
-        }
-      },
-    })
-  }
-
-  const goout = () => {
-    //模版列表删除
-    ElMessageBox({
-      title: '提示',
-      message: '您确定要退出到登录界面吗?',
-      showCancelButton: true,
-      confirmButtonText: '确认',
-      cancelButtonText: '取消',
-      beforeClose: (action, instance, done) => {
-        if (action === 'confirm') {
-          done()
-          removeStorage('local')
-          appRouter.push('/login')
-        } else {
-          done()
-        }
-      },
-    })
-  }
   onMounted(() => {
     zdy_popoverf() //切换主题
     //来消息的提示
@@ -240,11 +203,24 @@
   // const handleSelect = (key: string, keyPath: string[]) => {
   //   console.log(key, keyPath)
   // }
+
+  const topHeaderStyle: any = {
+    textAlign: 'center',
+    color: '#fff',
+    height: 64,
+    paddingInline: 0,
+    backgroundColor: '#108ee9',
+  };
   const headerStyle: any = {
     height: 64,
     lineHeight: '1.6',
     padding: '10px 20px',
   };
+
+  const siderStyle: any = {
+    textAlign: 'center',
+  };
+
   const footerStyle: any = {
     padding: '10px 20px',
   };
@@ -261,9 +237,8 @@
     /* margin-bottom: 15px;
     padding-bottom: 15px; */
   }
-
-  .template_list:last-child {
-    border: 0;
+  .template_list:last-child{
+    border:0;
     padding-bottom: 0;
   }
 
@@ -331,7 +306,6 @@
     .ztInputDiv {
       background-color: #141517;
     }
-
     :deep(.el-input__wrapper) {
       background-color: #141517;
       border: 0;
@@ -360,9 +334,6 @@
       left: 0;
       width: 100%;
       text-align: center;
-
-
-
     }
   }
 

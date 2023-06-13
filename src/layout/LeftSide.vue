@@ -83,7 +83,7 @@
     }
   }
 
-  ::v-deep .zdy_input .el-input__wrapper {
+  :deep(.zdy_input .el-input__wrapper) {
     background-color: rgba(188, 189, 194, 0.2);
     border: 0;
     box-shadow: 0 0 0 0px var(--el-input-border-color, var(--el-border-color)) inset;
