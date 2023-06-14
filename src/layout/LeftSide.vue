@@ -22,7 +22,7 @@
         </div>
         <div class="between">
           <div class="f12 svh cr666 mr5">
-            你好在吗？ 有个问题需要您协助处理asdasdsa
+            你好在吗？ 有个问题需要您协助处理
           </div>
           <div class="tipsnum">
             {{index+1}}

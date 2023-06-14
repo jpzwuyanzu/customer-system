@@ -55,25 +55,25 @@
             fit="cover" />
         </div>
       </a-layout-header>
-      <el-scrollbar>
-        <a-layout-content class="cn_color">
-          <!-- 路由缓存需要缓存的组件 -->
-          <router-view v-slot="{ Component }" :key="$route.fullPath">
-            <Transition name="slide-fade" mode="out-in" appear>
-              <keep-alive>
-                <component :is="Component" :key="$route.name" v-if="$route.meta.keepalive" />
-              </keep-alive>
-            </Transition>
-            <Transition name="slide-fade" mode="out-in" appear>
-              <component :is="Component" :key="$route.name" v-if="!$route.meta.keepalive" />
-            </Transition>
-          </router-view>
-        </a-layout-content>
-      </el-scrollbar>
+
+      <a-layout-content class="cn_color">
+        <!-- 路由缓存需要缓存的组件 -->
+        <router-view v-slot="{ Component }" :key="$route.fullPath">
+          <Transition name="slide-fade" mode="out-in" appear>
+            <keep-alive>
+              <component :is="Component" :key="$route.name" v-if="$route.meta.keepalive" />
+            </keep-alive>
+          </Transition>
+          <Transition name="slide-fade" mode="out-in" appear>
+            <component :is="Component" :key="$route.name" v-if="!$route.meta.keepalive" />
+          </Transition>
+        </router-view>
+      </a-layout-content>
+
       <a-layout-footer :style="footerStyle" class="bgfff">
         <div class="between">
           <div>
-            <el-popover placement="top-end" :show-arrow="false" offset="25" :visible="template_visible" :width="50+'%'"
+            <el-popover placement="top-end" :show-arrow="false" :offset="25" :visible="template_visible" :width="50+'%'"
               trigger="click" :popper-style="zdy_popover">
               <template #reference>
                 <el-image style="width:30px;" @click="template_visible=!template_visible" class="mr10 crpr"
@@ -158,6 +158,7 @@
   const right_type = ref(true)
   const template_visible = ref(false)
   const activeIndex = ref('1')
+  const textarea = ref('')
   const input1 = ref()
   var themeMode = ref(Store.counter.themeMode)
   var zdy_popover = ref({})
@@ -227,7 +228,7 @@
     ElNotification({
       dangerouslyUseHTMLString: true,
       message: tipsTxt,
-      duration: 5000,
+      duration: 500000,
       onClick: (event) => handleClick(event),
     })
   })
@@ -297,6 +298,7 @@
 
   .cn_color {
     background-color: #f7f8fc;
+    overflow: hidden;
     overflow-x: hidden;
   }
 
@@ -323,7 +325,7 @@
 
     .cn_color {
       /* color: #fff; */
-      background-color: #1d1e22;
+      background-color: #141517;
       color: #ffffff;
     }
 
