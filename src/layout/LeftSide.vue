@@ -1,35 +1,59 @@
 <template>
-
   <el-scrollbar :wrap-style="{width:'100%'}">
     <el-affix :offset="0">
       <div style="padding:16px;z-index: 2;" :class="Store.counter.themeMode?'zt_night':'bgfff'">
         <el-input v-model="input1" placeholder="搜索" class="zdy_input" clearable :prefix-icon="Search" :minlength="50" />
       </div>
     </el-affix>
-    <div class="chatlist row" :class="selec_index==index?'cur':''" v-for="(item,index) in 100" :key="index"
-      @click="selectContacts(item,index)">
-      <div class="mr10">
-        <el-avatar :size="40" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
-      </div>
-      <div class="ow">
-        <div class="between mb5">
-          <div class="f14 fw mb5 svh mr5">
-            用户{{index+1*1000000}}号
+    <div class="chatlist" :class="selec_index==index?'cur':''" v-for="(item,index) in contacts" :key="index"
+      @click="selectContacts(item,index)" @contextmenu.prevent="rightClick(index)">
+      <el-popover :offset="0" :visible="item.rightprevent" placement="bottom-end" :width="130" trigger="click"
+        :show-arrow="false">
+        <template #reference>
+          <div class="row">
+            <div class="mr10">
+              <el-avatar :size="40" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
+            </div>
+            <div class="ow w">
+              <div class="between mb5">
+                <div class="f14 fw mb5 svh mr5">
+                  {{item.name}}
+                </div>
+                <div class="f12 cr999">
+                  {{item.time}}
+                </div>
+              </div>
+              <div class="between">
+                <div class="f12 svh cr666 mr5" style="width: 1000%;">
+                  {{item.news}}
+                </div>
+                <div class="tipsnum">
+                  {{index+1}}
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="f12 cr999">
-            12:30
+        </template>
+        <div class="cr707c97 popover_rightcn">
+          <div class=" rowC crpr">
+            <el-icon class="mr10">
+              <Upload />
+            </el-icon>
+            置顶
+          </div>
+          <div class="rowC crpr">
+            <el-icon class="mr10">
+              <Finished />
+            </el-icon>标记已读
+          </div>
+          <div class="rowC crpr">
+            <el-icon class="mr10">
+              <DeleteFilled />
+            </el-icon>删除
           </div>
         </div>
-        <div class="between">
-          <div class="f12 svh cr666 mr5">
-            你好在吗？ 有个问题需要您协助处理
-          </div>
-          <div class="tipsnum">
-            {{index+1}}
-          </div>
-        </div>
+      </el-popover>
 
-      </div>
     </div>
   </el-scrollbar>
 
@@ -45,15 +69,50 @@
   var value = ref('')
   var input1 = ref('')
   var selec_index = ref(-1)
+  var contacts = ref([])
+  for (var i = 0; i < 100; i++) {
+    let obj = {
+      avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+      name: '用户' + i + '号',
+      time: '12:25',
+      news: '你好，在吗，在吗',
+      rightprevent: false,
+    }
+    contacts.value.push(obj)
+  }
+
   const selectContacts = (obj, index) => {
     selec_index.value = index
+    rightClick()
   }
+
+  const rightClick = (index) => {
+    if (index) {
+      selec_index.value = index
+      if (contacts.value[index].rightprevent) {
+        return contacts.value[index].rightprevent = false
+      }
+      for (let i in contacts.value) {
+        contacts.value[i].rightprevent = false
+      }
+      return contacts.value[index].rightprevent = true
+    } else {
+      for (let i in contacts.value) {
+        contacts.value[i].rightprevent = false
+      }
+    }
+  }
+
+
 </script>
 <style lang="scss" scoped>
   .chatlist {
     cursor: pointer;
     padding: 12px;
+  }
 
+  .chatlist:hover {
+    background: #F2F2F3;
   }
 
   .tipsnum {
@@ -71,7 +130,7 @@
   }
 
   .cur {
-    background-color: #296dfe;
+    background-color: #296dfe !important;
     color: #fff;
 
     .cr999 {
@@ -87,5 +146,16 @@
     background-color: rgba(188, 189, 194, 0.2);
     border: 0;
     box-shadow: 0 0 0 0px var(--el-input-border-color, var(--el-border-color)) inset;
+  }
+
+  .popover_rightcn {
+    .crpr {
+      padding: 10px;
+    }
+
+    .crpr:hover {
+      background-color: #F2F2F3;
+      border-radius: 5px;
+    }
   }
 </style>

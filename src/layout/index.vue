@@ -101,16 +101,18 @@
                     模版内容
                   </div>
                   <el-scrollbar class="w" height="50vh">
-                    <div class="template_list" v-for="(item,index) in 100" :key="index">
+                    <div class="template_list" @click="template_election(index)" :class="themeMode?'zt_night':''" v-for="(item,index) in 100"
+                      :key="index">
                       <div class="mr10 tc" style="width:40px;">
                         {{index+1}}
                       </div>
                       <div class="w mr20">
-                        <el-input class="w bgfff" v-model="textarea" :rows="2" type="textarea" placeholder="请输入内容" />
+                        你好啊
+                        <!-- <el-input class="w bgfff" v-model="textarea" :rows="2" type="textarea" placeholder="请输入内容" /> -->
                       </div>
                       <div>
                         <div class="mb10">
-                          <el-button type="success" size="small" class="f14">保存</el-button>
+                          <el-button type="success" size="small" class="f14">编辑</el-button>
                         </div>
                         <div>
                           <el-button type="primary" @click="template_del" size="small" color="#ff3366"
@@ -124,9 +126,6 @@
               </div>
             </el-popover>
           </div>
-
-
-
           <div class="ztInputDiv">
             <!-- <input placeholder="输入消息" class="not_input_css w" style="height:40px;" /> -->
             <el-input v-model="input1" placeholder="输入消息" clearable :minlength="3200" />
@@ -182,6 +181,15 @@
         minWidth: '0',
       }
     }
+  }
+
+
+  
+  const template_election = (index) => {
+    //模版选择的某一项
+    template_visible.value = false
+    input1.value = '你好啊'
+
   }
 
   const template_del = () => {
@@ -253,6 +261,16 @@
 
 
 <style lang="scss" scoped>
+  .template_list:hover {
+    background-color: #F2F2F3 !important;
+    cursor: pointer;
+  }
+
+  .zt_night.template_list:hover {
+    background-color: #3D3E42 !important;
+    cursor: pointer;
+  }
+
   .template_list {
     display: flex;
     justify-content: space-between;
@@ -273,7 +291,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: rgba(188, 189, 194, 0.2);
-    padding: 0px 15px 0px 20px;
+    padding: 0px 15px 0px 10px;
     border-radius: 100px;
     width: 100%;
     margin-right: 10px;
@@ -304,6 +322,10 @@
 
 
   .zt_night {
+    .template_list {
+      color: #fff;
+    }
+
     .nav_left {
       background-color: #1d1e22;
       color: #ffffff;
