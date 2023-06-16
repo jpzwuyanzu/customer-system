@@ -38,10 +38,11 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
   import useStore from '@/store';
-  import { ElScrollbar } from 'element-plus'
+  // import type { ElScrollbar } from 'element-plus'
+
   const Store = ref(useStore())
 
-  const chatLog = ref([])
+  const chatLog = ref<any>([])
   chatLog.value = [
     {
       type: 'text',
@@ -76,11 +77,11 @@
       username:'客服',
     },
   ]
-  const scrollbarRef = ref < InstanceType < typeof ElScrollbar >> ()
+  const scrollbarRef = ref <any> ()
   const Scroll_bottom = () => {
     scrollbarRef.value!.setScrollTop(9999999999) //自动滚动到底部
   }
-  const scroll = ({ scrollTop }) => {
+  const scroll = ({ scrollTop }: any) => {
     console.log('监听聊天记录的滚动条：' + scrollTop + 'px')
   }
 

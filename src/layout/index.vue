@@ -107,7 +107,7 @@
                         {{index+1}}
                       </div>
                       <div class="w mr20">
-                        你好啊
+                        你好啊{{ item }}
                         <!-- <el-input class="w bgfff" v-model="textarea" :rows="2" type="textarea" placeholder="请输入内容" /> -->
                       </div>
                       <div>
@@ -146,21 +146,19 @@
   import LeftSide from './LeftSide.vue'
   import RightSide from './RightSide.vue'
   import { removeStorage } from '@/utils/common'
-  import { h } from 'vue'
-  import { ElNotification, ElMessageBox } from 'element-plus'
+  // import { ElNotification } from 'element-plus'
+  import ElNotification from "module";
+  import ElMessageBox from 'element-plus'
   import { useRouter } from 'vue-router'
+
+
   const appRouter = useRouter();
   const Store = useStore()
-  // import SideBar from "./sideBar.vue";
-  // import type { CSSProperties } from 'vue';
-  const mode_value = ref(false)
   const right_type = ref(true)
   const template_visible = ref(false)
-  const activeIndex = ref('1')
-  const textarea = ref('')
   const input1 = ref()
-  var themeMode = ref(Store.counter.themeMode)
-  var zdy_popover = ref({})
+  let themeMode = ref(Store.counter.themeMode)
+  let zdy_popover = ref({})
   const switch_themeMode = () => {
     Store.counter.switch_themeMode()
     themeMode.value = Store.counter.themeMode
@@ -185,7 +183,7 @@
 
 
   
-  const template_election = (index) => {
+  const template_election = (_index: any) => {
     //模版选择的某一项
     template_visible.value = false
     input1.value = '你好啊'
@@ -194,13 +192,13 @@
 
   const template_del = () => {
     //模版列表删除
-    ElMessageBox({
+    (ElMessageBox as any).confirm({
       title: '提示',
       message: '您确认要删除该条数据吗？',
       showCancelButton: true,
       confirmButtonText: '确认',
       cancelButtonText: '取消',
-      beforeClose: (action, instance, done) => {
+      beforeClose: (action: any, _instance: any, done: any) => {
         if (action === 'confirm') {
           done()
         } else {
@@ -212,13 +210,13 @@
 
   const goout = () => {
     //模版列表删除
-    ElMessageBox({
+    (ElMessageBox as any).confirm({
       title: '提示',
       message: '您确定要退出到登录界面吗?',
       showCancelButton: true,
       confirmButtonText: '确认',
       cancelButtonText: '取消',
-      beforeClose: (action, instance, done) => {
+      beforeClose: (action: any, _instance: any, done: any) => {
         if (action === 'confirm') {
           done()
           removeStorage('local')
@@ -232,16 +230,16 @@
   onMounted(() => {
     zdy_popoverf() //切换主题
     //来消息的提示
-    let tipsTxt = '<div class="rowC"><div class="mr10"><img style="width:50px" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" /></div><div><div class="f16 fw"> 天使爱美丽</div><div class="f12"> 请等一哈，我查一下啊</div></div></div>'
-    ElNotification({
+    let tipsTxt:any = '<div class="rowC"><div class="mr10"><img style="width:50px" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" /></div><div><div class="f16 fw"> 天使爱美丽</div><div class="f12"> 请等一哈，我查一下啊</div></div></div>';
+    (ElNotification as any)({
       dangerouslyUseHTMLString: true,
       message: tipsTxt,
       duration: 500000,
-      onClick: (event) => handleClick(event),
+      onClick: (event:any) => handleClick(event),
     })
   })
 
-  const handleClick = (event) => {
+  const handleClick = (event:any) => {
     var notificationEl = event.target.closest('.el-notification');
     console.log(notificationEl);
   };

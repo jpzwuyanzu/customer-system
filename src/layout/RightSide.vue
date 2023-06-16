@@ -51,10 +51,9 @@
     import useStore from '@/store';
     const Store = ref(useStore())
     //Store.counter.themeMode
-    var value = ref('')
-    var input1 = ref('')
-    var selec_index = ref(-1)
-    const selectContacts = (obj, index) => {
+    let input1 = ref<any>('')
+    let selec_index = ref<any>(-1)
+    const selectContacts = (_item: any, _index: any) => {
        // selec_index.value = index
     }
 </script>

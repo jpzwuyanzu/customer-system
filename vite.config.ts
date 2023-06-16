@@ -13,13 +13,13 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    {
-      name: 'alias',
-      configureResolvedOptions(resolvedOptions) {
-        resolvedOptions.alias['@'] = path.resolve(__dirname, 'src');
-        return resolvedOptions;
-      },
-    },
+    // {
+    //   name: 'alias',
+    //   configureResolvedOptions(resolvedOptions) {
+    //     resolvedOptions.alias['@'] = path.resolve(__dirname, 'src');
+    //     return resolvedOptions;
+    //   },
+    // },
     electron({
       // 入口文件
       entry: [

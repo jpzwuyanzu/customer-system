@@ -64,29 +64,29 @@
   import { ref } from 'vue'
   import { Search } from '@element-plus/icons-vue'
   import useStore from '@/store';
+
   const Store = ref(useStore())
   //Store.counter.themeMode
-  var value = ref('')
-  var input1 = ref('')
-  var selec_index = ref(-1)
-  var contacts = ref([])
-  for (var i = 0; i < 100; i++) {
-    let obj = {
+  let input1 = ref<any>('')
+  let selec_index = ref<any>(-1)
+  let contacts = ref<any>([])
+  for (let i = 0; i < 100; i++) {
+    let obj: any = {
       avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
       name: '用户' + i + '号',
       time: '12:25',
       news: '你好，在吗，在吗',
       rightprevent: false,
     }
-    contacts.value.push(obj)
+    contacts.value.push((obj as any))
   }
 
-  const selectContacts = (obj, index) => {
+  const selectContacts = (_obj: any, index: any) => {
     selec_index.value = index
     rightClick()
   }
 
-  const rightClick = (index) => {
+  const rightClick = (index?: string | number | undefined) => {
     if (index) {
       selec_index.value = index
       if (contacts.value[index].rightprevent) {

@@ -33,8 +33,10 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { reactive, toRaw, ref } from 'vue'
-  import { Form, message } from 'ant-design-vue';
+  // import { reactive, toRaw, ref } from 'vue'
+  // import { Form, message } from 'ant-design-vue';
+  import { reactive, ref } from 'vue'
+  import { Form, } from 'ant-design-vue';
   import type { ILogin } from "./../../types/interface";
   import { setStorage, setCookieItem } from '@/utils/common'
   import { useRouter } from 'vue-router'
@@ -74,7 +76,7 @@
     ]
   })
 
-  const { resetFields, validate, validateInfos } = useForm(modelRef, ruleRef);
+  const { validate, validateInfos } = useForm(modelRef, ruleRef);
   const loginNow = async () => {
     setStorage('local', 'token', '123132')
 
