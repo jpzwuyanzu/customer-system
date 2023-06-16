@@ -12,6 +12,7 @@
     "@types/js-cookie": "^3.0.3",
     "@types/nprogress": "^0.2.0",
     "ant-design-vue": "^4.0.0-rc.5",
+    "dayjs": "^1.11.8",
     "element-plus": "^2.3.6",
     "js-cookie": "^3.0.5",
     "nprogress": "^0.2.0",

@@ -146,9 +146,9 @@
   import LeftSide from './LeftSide.vue'
   import RightSide from './RightSide.vue'
   import { removeStorage } from '@/utils/common'
-  // import { ElNotification } from 'element-plus'
-  import ElNotification from "module";
-  import ElMessageBox from 'element-plus'
+  import { ElNotification,ElMessageBox } from 'element-plus'
+  // import {ElNotification} from "element-plus";
+  // import {ElMessageBox} from 'element-plus'
   import { useRouter } from 'vue-router'
 
 
@@ -180,19 +180,15 @@
       }
     }
   }
-
-
-  
   const template_election = (_index: any) => {
     //模版选择的某一项
     template_visible.value = false
     input1.value = '你好啊'
 
   }
-
   const template_del = () => {
     //模版列表删除
-    (ElMessageBox as any).confirm({
+    (ElMessageBox as any)({
       title: '提示',
       message: '您确认要删除该条数据吗？',
       showCancelButton: true,
@@ -204,13 +200,11 @@
         } else {
           done()
         }
-      },
+      }
     })
   }
-
   const goout = () => {
-    //模版列表删除
-    (ElMessageBox as any).confirm({
+    (ElMessageBox as any)({
       title: '提示',
       message: '您确定要退出到登录界面吗?',
       showCancelButton: true,
@@ -224,11 +218,11 @@
         } else {
           done()
         }
-      },
+      }
     })
   }
   onMounted(() => {
-    zdy_popoverf() //切换主题
+    zdy_popoverf()
     //来消息的提示
     let tipsTxt:any = '<div class="rowC"><div class="mr10"><img style="width:50px" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" /></div><div><div class="f16 fw"> 天使爱美丽</div><div class="f12"> 请等一哈，我查一下啊</div></div></div>';
     (ElNotification as any)({
