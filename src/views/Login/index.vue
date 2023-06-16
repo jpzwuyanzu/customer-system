@@ -27,9 +27,8 @@
       </a-form>
     </div>
     <div>
-      <el-image style="width: 614px; height:734px;" src="/src/assets/images/Maskgroup.jpg" fit="cover" />
+      <el-image style="width: 614px; height:734px;" :src="filter.getFile('Maskgroup.jpg')" fit="cover" />
     </div>
-    
   </div>
 </template>
 <script setup lang="ts">

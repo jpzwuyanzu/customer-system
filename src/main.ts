@@ -21,3 +21,20 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(ElementPlus)
 app.use(pinia)
 app.use(router).use(Antd).mount('#app')
+
+app.config.globalProperties.filter = {
+    getFile<T>(content: T) {
+        //返回图片路径
+        return   new URL(`./assets/images/${content}`, import.meta.url).href
+    }
+}
+// 解决Vue中的全局变量和函数报错问题
+interface Filter {
+    getFile<T>(content: T): string
+}
+declare module 'vue' {
+    export interface ComponentCustomProperties {
+        filter: Filter,
+        env: string
+    }
+}

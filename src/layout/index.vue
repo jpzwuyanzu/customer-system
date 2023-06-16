@@ -3,19 +3,19 @@
     <div class="nav_left">
       <!-- 最左边的导航栏 -->
       <div class="mb40">
-        <el-image class="crpr" style="width: 35px;" src="/src/assets/images/left_nav/1.png" fit="cover" />
+        <el-image class="crpr" style="width: 35px;" :src="filter.getFile('left_nav/1.png')" fit="cover" />
       </div>
       <div class="mb40">
-        <el-image class="crpr" style="width: 35px;" src="/src/assets/images/left_nav/2.png" fit="cover" alt="消息通知" />
+        <el-image class="crpr" style="width: 35px;" :src="filter.getFile('left_nav/2.png')" fit="cover" alt="消息通知" />
       </div>
       <div class="mb40">
-        <el-image class="crpr" style="width: 35px;" v-show="!themeMode" src="/src/assets/images/left_nav/3.png"
+        <el-image class="crpr" style="width: 35px;" v-show="!themeMode" :src="filter.getFile('left_nav/3.png')"
           fit="cover" alt="日间与夜间模式的切换" @click="switch_themeMode" />
-        <el-image class="crpr" style="width: 35px;" v-show="themeMode" src="/src/assets/images/left_nav/3_on.png"
+        <el-image class="crpr" style="width: 35px;" v-show="themeMode" :src="filter.getFile('left_nav/3_on.png')"
           fit="cover" alt="日间与夜间模式的切换" @click="switch_themeMode" />
       </div>
       <div class="mb40">
-        <el-image class="crpr" style="width: 35px;" src="/src/assets/images/left_nav/4.png" fit="cover" alt="设置" />
+        <el-image class="crpr" style="width: 35px;"   :src="filter.getFile('left_nav/4.png')" fit="cover" alt="设置" />
       </div>
       <div class="my_avatar">
         <el-popover placement="right" :width="130" trigger="click" :show-arrow="false" :popper-style="zdy_popover">
@@ -30,7 +30,7 @@
               </el-icon>切换账号
             </div>
             <div class="rowC crpr" @click="goout">
-              <el-image class="mr10" style="width:20px;" src="/src/assets/images/power.png" fit="cover" />
+              <el-image class="mr10" style="width:20px;"  :src="filter.getFile('power.png')"  fit="cover" />
               登出
             </div>
           </div>
@@ -51,8 +51,7 @@
               <div class="f12 zycr">上次在线5小时前</div>
             </div>
           </div>
-          <el-image @click="right_type=!right_type" style="width: 30px;" src="/src/assets/images/Calendar.png"
-            fit="cover" />
+          <el-image @click="right_type=!right_type" style="width: 30px;" :src="filter.getFile('Calendar.png')"  fit="cover" />
         </div>
       </a-layout-header>
 
@@ -77,7 +76,7 @@
               trigger="click" :popper-style="zdy_popover">
               <template #reference>
                 <el-image style="width:30px;" @click="template_visible=!template_visible" class="mr10 crpr"
-                  src="/src/assets/images/quickReply.png" fit="cover" />
+                :src="filter.getFile('quickReply.png')" fit="cover" />
               </template>
               <div class="p10 pb0">
                 <div class="between mb15">
@@ -129,9 +128,9 @@
           <div class="ztInputDiv">
             <!-- <input placeholder="输入消息" class="not_input_css w" style="height:40px;" /> -->
             <el-input v-model="input1" placeholder="输入消息" clearable :minlength="3200" />
-            <el-image style="width: 30px;" src="/src/assets/images/expression.png" fit="cover" />
+            <el-image style="width: 30px;" :src="filter.getFile('expression.png')" fit="cover" />
           </div>
-          <el-image style="width: 30px;" src="/src/assets/images/send.png" fit="cover" />
+          <el-image style="width: 30px;" :src="filter.getFile('send.png')" fit="cover" />
         </div>
       </a-layout-footer>
     </a-layout>
