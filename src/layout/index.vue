@@ -51,7 +51,9 @@
               <div class="f12 zycr">上次在线5小时前</div>
             </div>
           </div>
-          <el-image class="crpr" @click="right_type = !right_type" style="width: 30px;" :src="filter.getFile('Calendar.png')"
+          <el-image class="crpr" v-if="right_type" @click="right_type = !right_type" style="width: 30px;" :src="filter.getFile('Calendar.png')"
+            fit="cover" />
+            <el-image class="crpr" v-if="!right_type" @click="right_type = !right_type" style="width: 30px;" :src="filter.getFile('Calendar_on.png')"
             fit="cover" />
         </div>
       </a-layout-header>
