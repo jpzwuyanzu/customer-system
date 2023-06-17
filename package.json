@@ -11,6 +11,7 @@
   "dependencies": {
     "@types/js-cookie": "^3.0.3",
     "@types/nprogress": "^0.2.0",
+    "animate.css": "^4.1.1",
     "ant-design-vue": "^4.0.0-rc.5",
     "dayjs": "^1.11.8",
     "element-plus": "^2.3.6",
