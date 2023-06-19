@@ -9,10 +9,16 @@ import 'ant-design-vue/dist/reset.css';
 import './style.scss'
 import App from './App.vue'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate);
 
 const app = createApp(App);
+
+import Emoji from 'emoji-box'
+import 'emoji-box/dist/style.css'
+app.use(Emoji)
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)

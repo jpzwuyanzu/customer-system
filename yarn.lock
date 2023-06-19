@@ -1219,6 +1219,13 @@ element-plus@^2.3.6:
     memoize-one "^6.0.0"
     normalize-wheel-es "^1.2.0"
 
+emoji-box@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmmirror.com/emoji-box/-/emoji-box-1.1.0.tgz#7eb9a501e5ac89e8eff023394e80b8546a6a21d4"
+  integrity sha512-4rHie5kD3mDiKIVX35WuuZ90AxFnNNQ93YvJpmMzFxRizE1VavnR7JFkz3XcT+uK0WJy17YE+X0WB3HXGnlUjg==
+  dependencies:
+    vue "^3.2.37"
+
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.npmmirror.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
@@ -2426,7 +2433,7 @@ vue-types@^3.0.0:
   dependencies:
     is-plain-object "3.0.1"
 
-vue@^3.2.47:
+vue@^3.2.37, vue@^3.2.47:
   version "3.3.4"
   resolved "https://registry.npmmirror.com/vue/-/vue-3.3.4.tgz#8ed945d3873667df1d0fcf3b2463ada028f88bd6"
   integrity sha512-VTyEYn3yvIeY1Py0WaYGZsXnz3y5UnGi62GjVEqvEGPl6nxbOrCXbVOTQWBEJUqAyTUk2uJ5JLVnYJ6ZzGbrSw==

@@ -15,6 +15,7 @@
     "ant-design-vue": "^4.0.0-rc.5",
     "dayjs": "^1.11.8",
     "element-plus": "^2.3.6",
+    "emoji-box": "^1.1.0",
     "js-cookie": "^3.0.5",
     "nprogress": "^0.2.0",
     "pinia": "^2.1.3",

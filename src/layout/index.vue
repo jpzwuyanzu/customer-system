@@ -1,5 +1,6 @@
 <template>
   <a-layout class="row" :class="themeMode ? 'zt_night' : ''">
+
     <div class="nav_left">
       <!-- 最左边的导航栏 -->
       <div class="mb40">
@@ -51,10 +52,10 @@
               <div class="f12 zycr">上次在线5小时前</div>
             </div>
           </div>
-          <el-image class="crpr" v-if="right_type" @click="right_type = !right_type" style="width: 30px;" :src="filter.getFile('Calendar.png')"
-            fit="cover" />
-            <el-image class="crpr" v-if="!right_type" @click="right_type = !right_type" style="width: 30px;" :src="filter.getFile('Calendar_on.png')"
-            fit="cover" />
+          <el-image class="crpr" v-if="right_type" @click="right_type = !right_type" style="width: 30px;"
+            :src="filter.getFile('Calendar.png')" fit="cover" />
+          <el-image class="crpr" v-if="!right_type" @click="right_type = !right_type" style="width: 30px;"
+            :src="filter.getFile('Calendar_on.png')" fit="cover" />
         </div>
       </a-layout-header>
 
@@ -131,14 +132,25 @@
           <div class="ztInputDiv">
             <!-- <input placeholder="输入消息" class="not_input_css w" style="height:40px;" /> -->
             <el-input v-model="input1" placeholder="输入消息" clearable :minlength="3200" />
-            <el-image style="width: 30px;" :src="filter.getFile('expression.png')" fit="cover" />
+
+            <el-popover placement="top-end" :show-arrow="false" :offset="25" :width="50 + '%'" trigger="click"
+              :popper-style="zdy_popover">
+              <template #reference>
+                <el-image style="width: 30px;" :src="filter.getFile('expression.png')" fit="cover" />
+              </template>
+              <div class="p10">
+                <Emoji v-model="state.value" @add="addEmoji($event)" @delete="deleteEmoji()" />
+              </div>
+            </el-popover>
+
+
           </div>
           <el-image style="width: 30px;" :src="filter.getFile('send.png')" fit="cover" />
         </div>
       </a-layout-footer>
     </a-layout>
     <!-- animate__fadeOut -->
-    <div class="right_cn" :style="{width:right_type?'0':'300px'}">
+    <div class="right_cn" :style="{ width: right_type ? '0' : '300px' }">
       <RightSide />
     </div>
   </a-layout>
@@ -150,18 +162,39 @@ import LeftSide from './LeftSide.vue'
 import RightSide from './RightSide.vue'
 import { removeStorage } from '@/utils/common'
 import { ElNotification, ElMessageBox } from 'element-plus'
-// import {ElNotification} from "element-plus";
-// import {ElMessageBox} from 'element-plus'
 import { useRouter } from 'vue-router'
+import useCurrentInstance from "@/utils/useCurrentInstance";
+const { proxy } = useCurrentInstance();
+const global = proxy
+
 
 
 const appRouter = useRouter();
 const Store = useStore()
 const right_type = ref(true)
 const template_visible = ref(false)
-const input1 = ref()
-let themeMode = ref(Store.counter.themeMode)
-let zdy_popover = ref({})
+const input1 = ref('')
+const themeMode = ref(Store.counter.themeMode)
+const zdy_popover = ref({})
+
+const state = ref({
+  value: '',
+  msgs: [],
+})
+
+const addEmoji = (val: any) => {
+  state.value += val
+  // input1.value += global.$string2emoji(val) 
+  input1.value += val
+}
+
+const deleteEmoji = () => {
+  if (state.value) {
+    state.value = global.$deleteEmoji(state.value)
+  }
+}
+
+
 const switch_themeMode = () => {
   Store.counter.switch_themeMode()
   themeMode.value = Store.counter.themeMode
