@@ -131,7 +131,7 @@
           </div>
           <div class="ztInputDiv">
             <!-- <input placeholder="输入消息" class="not_input_css w" style="height:40px;" /> -->
-            <el-input v-model="input1" placeholder="输入消息" clearable :minlength="3200" />
+            <el-input v-model="input1" :autosize="{ minRows:1, maxRows:4 }" :show-word-limit="false" class="not_textarea_css w mr10" type="textarea" placeholder="输入消息"  clearable :minlength="5000" />
 
             <el-popover placement="top-end" :show-arrow="false" :offset="25" :width="50 + '%'" trigger="click"
               :popper-style="zdy_popover">
@@ -320,7 +320,7 @@ const footerStyle: any = {
   align-items: center;
   background-color: rgba(188, 189, 194, 0.2);
   padding: 0px 15px 0px 10px;
-  border-radius: 100px;
+  border-radius: 20px;
   width: 100%;
   margin-right: 10px;
 
