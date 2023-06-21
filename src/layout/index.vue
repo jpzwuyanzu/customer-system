@@ -196,7 +196,7 @@ const deleteEmoji = () => {
 
 
 const switch_themeMode = () => {
-  Store.counter.switch_themeMode()
+  (Store.counter as any).switch_themeMode()
   themeMode.value = Store.counter.themeMode
   zdy_popoverf()
 }
