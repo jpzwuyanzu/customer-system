@@ -139,7 +139,7 @@
                 <el-image style="width: 30px;" :src="filter.getFile('expression.png')" fit="cover" />
               </template>
               <div class="p10">
-                <Emoji v-model="state.value" @add="addEmoji($event)" @delete="deleteEmoji()" />
+                <Emoji v-model="input1" @add="addEmoji($event)" @delete="deleteEmoji()" />
               </div>
             </el-popover>
 
@@ -177,20 +177,15 @@ const input1 = ref('')
 const themeMode = ref(Store.counter.themeMode)
 const zdy_popover = ref({})
 
-const state = ref({
-  value: '',
-  msgs: [],
-})
 
 const addEmoji = (val: any) => {
-  state.value += val
   // input1.value += global.$string2emoji(val) 
   input1.value += val
 }
 
 const deleteEmoji = () => {
-  if (state.value) {
-    state.value = global.$deleteEmoji(state.value)
+  if (input1.value) {
+    input1.value = global.$deleteEmoji(input1.value)
   }
 }
 
