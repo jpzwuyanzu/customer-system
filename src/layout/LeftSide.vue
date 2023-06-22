@@ -28,7 +28,7 @@
                   {{ item.news }}
                 </div>
                 <div class="tipsnum">
-                  {{ item.tipsnum}}
+                  {{ item.tipsnum }}
                 </div>
               </div>
             </div>
@@ -64,15 +64,12 @@ import { Search } from '@element-plus/icons-vue'
 import useStore from '@/store';
 import Mock from 'mockjs';
 const Store = ref(useStore())
-//Store.counter.themeMode
 let input1 = ref<any>('')
 let selec_index = ref<any>(-1)
-
-
 let Mockdata = Mock.mock({
   'list|100': [{
     'id|+1': 1,
-    avatar:'@image()',
+    avatar: '@image()',
     name: "@cname",
     time: "@datetime(HH:mm:ss)",
     // time: "@datetime(yyyy-MM-dd HH:mm:ss)",
@@ -85,24 +82,19 @@ let contacts = ref<any>(Mockdata.list)
 
 const selectContacts = (_obj: any, index: any) => {
   selec_index.value = index
-  rightClick()
+  rightClick(index)
 }
 
-const rightClick = (index?: string | number | undefined) => {
-  if (index||index==0) {
-    selec_index.value = index
-    if (contacts.value[index].rightprevent) {
-      return contacts.value[index].rightprevent = false
-    }
-    for (let i in contacts.value) {
-      contacts.value[i].rightprevent = false
-    }
-    return contacts.value[index].rightprevent = true
-  } else {
-    for (let i in contacts.value) {
-      contacts.value[i].rightprevent = false
-    }
+const rightClick = (index: any) => {
+  selec_index.value = index
+  Store.value.counter.switch_LeftSideObj(contacts.value[index])
+  if (contacts.value[index].rightprevent) {
+    return contacts.value[index].rightprevent = false
   }
+  for (let i in contacts.value) {
+    contacts.value[i].rightprevent = false
+  }
+  return contacts.value[index].rightprevent = true
 }
 
 
