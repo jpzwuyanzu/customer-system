@@ -1,5 +1,5 @@
 <template>
-    <el-scrollbar :wrap-style="{width:'100%'}">
+    <el-scrollbar :wrap-style="{width:'300px'}">
         <el-affix :offset="0">
             <div style="padding:16px;z-index: 2;" :class="Store.counter.themeMode?'zt_night':'bgfff'">
                 <div class="mb10 f20 fw">

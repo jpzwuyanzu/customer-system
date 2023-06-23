@@ -45,11 +45,10 @@
       <a-layout-header :style="headerStyle" class="cn_color">
         <div class="between">
           <div class="rowC">
-            <el-avatar :size="40" class="mr10"
-              src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
+            <el-avatar :size="40" class="mr10" :src="pinia_counter.LeftSide_obj.avatar" />
             <div class="">
-              <div class="f14">当幸福来敲门</div>
-              <div class="f12 zycr">上次在线5小时前</div>
+              <div class="f14">{{ pinia_counter.LeftSide_obj.name }}</div>
+              <div class="f12 zycr">上次在线时间：{{ timeDisplayMode(pinia_counter.LeftSide_obj.time) }}</div>
             </div>
           </div>
           <el-image class="crpr" v-if="right_type" @click="right_type = !right_type" style="width: 30px;"
@@ -131,7 +130,8 @@
           </div>
           <div class="ztInputDiv">
             <!-- <input placeholder="输入消息" class="not_input_css w" style="height:40px;" /> -->
-            <el-input v-model="input1" :autosize="{ minRows:1, maxRows:4 }" :show-word-limit="false" class="not_textarea_css w mr10" type="textarea" placeholder="输入消息"  clearable :minlength="5000" />
+            <el-input v-model="input1" :autosize="{ minRows: 1, maxRows: 4 }" :show-word-limit="false"
+              class="not_textarea_css w mr10" type="textarea" placeholder="输入消息" clearable :minlength="5000" />
 
             <el-popover placement="top-end" :show-arrow="false" :offset="25" :width="50 + '%'" trigger="click"
               :popper-style="zdy_popover">
@@ -160,21 +160,19 @@ import { ref, onMounted } from "vue";
 import useStore from '@/store';
 import LeftSide from './LeftSide.vue'
 import RightSide from './RightSide.vue'
-import { removeStorage } from '@/utils/common'
+import { removeStorage, timeDisplayMode } from '@/utils/common'
 import { ElNotification, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 import useCurrentInstance from "@/utils/useCurrentInstance";
 const { proxy } = useCurrentInstance();
 const global = proxy
-
-
-
 const appRouter = useRouter();
 const Store = useStore()
+const pinia_counter = ref(Store.counter)
 const right_type = ref(true)
 const template_visible = ref(false)
 const input1 = ref('')
-const themeMode = ref(Store.counter.themeMode)
+const themeMode = ref(pinia_counter.value.themeMode)
 const zdy_popover = ref({})
 
 
@@ -189,9 +187,8 @@ const deleteEmoji = () => {
   }
 }
 
-
 const switch_themeMode = () => {
-  (Store.counter as any).switch_themeMode()
+  pinia_counter.value.switch_themeMode()
   themeMode.value = Store.counter.themeMode
   zdy_popoverf()
 }

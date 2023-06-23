@@ -1,5 +1,5 @@
 import Cookie from 'js-cookie'
-// import dayjs from 'dayjs';
+import dayjs from 'dayjs';
 
 export function setCookieItem (key: string, value: string) {
     Cookie.set(key, value)
@@ -104,3 +104,30 @@ export function parseDataIosType (time: any) {
     // 输出结果：2014-04-23 18:55:49
     return Y+M+D+h+m+s
 }
+
+
+export function timeDisplayMode (timeVal: any){
+    //根据时间的不同，去访问不同的显示效果
+    let time = dayjs(timeVal).unix() * 1000
+    let targetDate = dayjs(time);
+    let now = dayjs().unix()
+    if (targetDate.isSame(now, 'day')) {
+      let diffInMinutes = dayjs().diff(targetDate, 'minute')
+      if (diffInMinutes <= 5) {
+        //如果小于五分钟就显示刚刚
+        return targetDate.format('刚刚')
+      } else {
+        return targetDate.format('HH:mm')
+      }
+      //如果是今天那么，返回今天的 时间与分
+    } else {
+      if (targetDate.isSame(now, 'year')) {
+        //判断是不是今年
+        return targetDate.format('MM-DD HH:mm')
+      } else {
+        //如果不是今天那么，返回年月日 时分
+        return targetDate.format('YYYY-MM-DD HH:mm')
+      }
+    }
+  }
+  

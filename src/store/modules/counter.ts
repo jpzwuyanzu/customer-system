@@ -4,7 +4,7 @@ const useCounterStore = defineStore('counter', {
     persist: true,
     state: () => {
         return {
-            LeftSide_obj:{}, //左边栏某个联系人的数据
+            LeftSide_obj: {} as any, //左边栏某个联系人的数据
             themeMode: getCookieItem('themeMode') ? false : getCookieItem('themeMode'), //true 月光模式  false 日光模式
         }
     },

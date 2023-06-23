@@ -20,14 +20,14 @@
                   {{ item.name }}
                 </div>
                 <div class="f12 cr999">
-                  {{ item.time }}
+                  {{ timeDisplayMode(item.time) }}
                 </div>
               </div>
               <div class="between">
                 <div class="f12 svh cr666 mr5" style="width: 1000%;">
                   {{ item.news }}
                 </div>
-                <div class="tipsnum">
+                <div class="tipsnum" v-if="item.tipsnum != 0">
                   {{ item.tipsnum }}
                 </div>
               </div>
@@ -35,18 +35,24 @@
           </div>
         </template>
         <div class="cr707c97 popover_rightcn">
-          <div class=" rowC crpr">
+          <div class="rowC crpr" @click="topping(index)" v-if="!item.istop">
             <el-icon class="mr10">
               <Upload />
             </el-icon>
             置顶
           </div>
-          <div class="rowC crpr">
+          <div class="rowC crpr" @click="offTopping(index)" v-else>
+            <el-icon class="mr10">
+              <Upload />
+            </el-icon>
+            取消置顶
+          </div>
+          <div class="rowC crpr" @click="read(index)">
             <el-icon class="mr10">
               <Finished />
             </el-icon>标记已读
           </div>
-          <div class="rowC crpr">
+          <div class="rowC crpr" @click="del(index)">
             <el-icon class="mr10">
               <DeleteFilled />
             </el-icon>删除
@@ -63,6 +69,9 @@ import { ref } from 'vue'
 import { Search } from '@element-plus/icons-vue'
 import useStore from '@/store';
 import Mock from 'mockjs';
+import { timeDisplayMode } from '@/utils/common'
+import { ElMessageBox } from 'element-plus'
+import { FALSE } from 'sass';
 const Store = ref(useStore())
 let input1 = ref<any>('')
 let selec_index = ref<any>(-1)
@@ -71,18 +80,27 @@ let Mockdata = Mock.mock({
     'id|+1': 1,
     avatar: '@image()',
     name: "@cname",
-    time: "@datetime(HH:mm:ss)",
-    // time: "@datetime(yyyy-MM-dd HH:mm:ss)",
+    time: "@datetime(yyyy-MM-dd HH:mm:ss)",
     news: "@ctitle",
     'tipsnum|1-100': 0,
     rightprevent: false,
+    istop:false,
   }],
 })
 let contacts = ref<any>(Mockdata.list)
 
+
+const closeright = () => {
+  //关闭所有的鼠标右键弹窗
+  for (let i in contacts.value) {
+    contacts.value[i].rightprevent = false
+  }
+}
+
 const selectContacts = (_obj: any, index: any) => {
   selec_index.value = index
-  rightClick(index)
+  Store.value.counter.switch_LeftSideObj(contacts.value[index])
+  closeright()
 }
 
 const rightClick = (index: any) => {
@@ -91,10 +109,43 @@ const rightClick = (index: any) => {
   if (contacts.value[index].rightprevent) {
     return contacts.value[index].rightprevent = false
   }
-  for (let i in contacts.value) {
-    contacts.value[i].rightprevent = false
-  }
+  closeright()
   return contacts.value[index].rightprevent = true
+}
+const topping = (index: any) => {
+  contacts.value[index].istop = true
+  let obj = contacts.value[index]
+  contacts.value.splice(index, 1);
+  contacts.value.unshift(obj)
+  closeright()
+}
+
+const offTopping = (index: any) => {
+  contacts.value[index].istop = false
+  closeright()
+}
+
+const read = (index: any) => {
+  contacts.value[index].tipsnum = 0
+  closeright()
+}
+
+const del = (index: any) => {
+  (ElMessageBox as any)({
+    title: '提示',
+    message: '您确定要删除与 ‘'+contacts.value[index].name+'’ 所有的历史对话记录吗？',
+    showCancelButton: true,
+    confirmButtonText: '确认',
+    cancelButtonText: '取消',
+    beforeClose: (action: any, _instance: any, done: any) => {
+      if (action === 'confirm') {
+        contacts.value.splice(index, 1);
+        done()
+      } else {
+        done()
+      }
+    }
+  })
 }
 
 
@@ -111,18 +162,27 @@ const rightClick = (index: any) => {
 
 .tipsnum {
   background-color: #ff3366;
-  border-radius: 100%;
+  border-radius: 10px;
   text-align: center;
-  padding: 5px 0;
+  padding: 2px 8px;
   font-size: 12px;
   display: inline-block;
-  min-width: 24px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   color: #fff;
 }
 
+// .tipsnum {
+//   background-color: #ff3366;
+//   border-radius: 100%;
+//   text-align: center;
+//   padding: 5px 0;
+//   font-size: 12px;
+//   display: inline-block;
+//   min-width: 24px;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   white-space: nowrap;
+//   color: #fff;
+// }
 .cur {
   background-color: #296dfe !important;
   color: #fff;
