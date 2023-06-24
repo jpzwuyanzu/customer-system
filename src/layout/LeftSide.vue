@@ -71,7 +71,6 @@ import useStore from '@/store';
 import Mock from 'mockjs';
 import { timeDisplayMode } from '@/utils/common'
 import { ElMessageBox } from 'element-plus'
-import { FALSE } from 'sass';
 const Store = ref(useStore())
 let input1 = ref<any>('')
 let selec_index = ref<any>(-1)

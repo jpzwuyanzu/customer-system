@@ -1,6 +1,5 @@
 <template>
   <a-layout class="row" :class="themeMode ? 'zt_night' : ''">
-
     <div class="nav_left">
       <!-- 最左边的导航栏 -->
       <div class="mb40">
@@ -73,80 +72,7 @@
       </a-layout-content>
 
       <a-layout-footer :style="footerStyle" class="bgfff">
-        <div class="between">
-          <div>
-            <el-popover placement="top-end" :show-arrow="false" :offset="25" :visible="template_visible" :width="50 + '%'"
-              trigger="click" :popper-style="zdy_popover">
-              <template #reference>
-                <el-image style="width:30px;" @click="template_visible = !template_visible" class="mr10 crpr"
-                  :src="filter.getFile('quickReply.png')" fit="cover" />
-              </template>
-              <div class="p10 pb0">
-                <div class="between mb15">
-                  <div class="fw f16">
-                    模版列表
-                  </div>
-                  <div>
-                    <el-icon class="crpr" size="25" @click="template_visible = !template_visible">
-                      <Close />
-                    </el-icon>
-                  </div>
-                </div>
-                <div class="between">
-                  <div class="ztInputDiv" style="border-radius:8px;width:90%;">
-                    <el-input v-model="input1" placeholder="输入内容" clearable :minlength="3200" />
-                  </div>
-                  <el-button type="primary" color="#296dfe" class="f14">新增</el-button>
-                </div>
-                <div>
-                  <div class="f16 mb15 cr707c97 fw" style="border-bottom: 1px solid #707c97;padding:15px 0;">
-                    模版内容
-                  </div>
-                  <el-scrollbar class="w" height="50vh">
-                    <div class="template_list" @click="template_election(index)" :class="themeMode ? 'zt_night' : ''"
-                      v-for="(item, index) in 100" :key="index">
-                      <div class="mr10 tc" style="width:40px;">
-                        {{ index + 1 }}
-                      </div>
-                      <div class="w mr20">
-                        你好啊{{ item }}
-                        <!-- <el-input class="w bgfff" v-model="textarea" :rows="2" type="textarea" placeholder="请输入内容" /> -->
-                      </div>
-                      <div>
-                        <div class="mb10">
-                          <el-button type="success" size="small" class="f14">编辑</el-button>
-                        </div>
-                        <div>
-                          <el-button type="primary" @click="template_del" size="small" color="#ff3366"
-                            class="f14">删除</el-button>
-                        </div>
-                      </div>
-                    </div>
-                  </el-scrollbar>
-
-                </div>
-              </div>
-            </el-popover>
-          </div>
-          <div class="ztInputDiv">
-            <!-- <input placeholder="输入消息" class="not_input_css w" style="height:40px;" /> -->
-            <el-input v-model="input1" :autosize="{ minRows: 1, maxRows: 4 }" :show-word-limit="false"
-              class="not_textarea_css w mr10" type="textarea" placeholder="输入消息" clearable :minlength="5000" />
-
-            <el-popover placement="top-end" :show-arrow="false" :offset="25" :width="50 + '%'" trigger="click"
-              :popper-style="zdy_popover">
-              <template #reference>
-                <el-image style="width: 30px;" :src="filter.getFile('expression.png')" fit="cover" />
-              </template>
-              <div class="p10">
-                <Emoji v-model="input1" @add="addEmoji($event)" @delete="deleteEmoji()" />
-              </div>
-            </el-popover>
-
-
-          </div>
-          <el-image style="width: 30px;" :src="filter.getFile('send.png')" fit="cover" />
-        </div>
+       <BottomInput/>
       </a-layout-footer>
     </a-layout>
     <!-- animate__fadeOut -->
@@ -160,33 +86,16 @@ import { ref, onMounted } from "vue";
 import useStore from '@/store';
 import LeftSide from './LeftSide.vue'
 import RightSide from './RightSide.vue'
+import BottomInput from './BottomInput.vue'
 import { removeStorage, timeDisplayMode } from '@/utils/common'
 import { ElNotification, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
-import useCurrentInstance from "@/utils/useCurrentInstance";
-const { proxy } = useCurrentInstance();
-const global = proxy
 const appRouter = useRouter();
 const Store = useStore()
 const pinia_counter = ref(Store.counter)
 const right_type = ref(true)
-const template_visible = ref(false)
-const input1 = ref('')
 const themeMode = ref(pinia_counter.value.themeMode)
 const zdy_popover = ref({})
-
-
-const addEmoji = (val: any) => {
-  // input1.value += global.$string2emoji(val) 
-  input1.value += val
-}
-
-const deleteEmoji = () => {
-  if (input1.value) {
-    input1.value = global.$deleteEmoji(input1.value)
-  }
-}
-
 const switch_themeMode = () => {
   pinia_counter.value.switch_themeMode()
   themeMode.value = Store.counter.themeMode
@@ -208,29 +117,7 @@ const zdy_popoverf = () => {
     }
   }
 }
-const template_election = (_index: any) => {
-  //模版选择的某一项
-  template_visible.value = false
-  input1.value = '你好啊'
 
-}
-const template_del = () => {
-  //模版列表删除
-  (ElMessageBox as any)({
-    title: '提示',
-    message: '您确认要删除该条数据吗？',
-    showCancelButton: true,
-    confirmButtonText: '确认',
-    cancelButtonText: '取消',
-    beforeClose: (action: any, _instance: any, done: any) => {
-      if (action === 'confirm') {
-        done()
-      } else {
-        done()
-      }
-    }
-  })
-}
 const goout = () => {
   (ElMessageBox as any)({
     title: '提示',
