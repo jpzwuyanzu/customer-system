@@ -14,7 +14,9 @@
             {{item.text}}
           </div>
           <div class="chatting" v-if="item.type == 'img'">
-            <el-image style="width:140px" :src="item.text" fit="fill" />
+            <el-image style="width:140px" :src="item.text" fit="fill"   :zoom-rate="1.2"
+      :preview-src-list="srcList"
+      :initial-index="4" :z-index="8999988"/>
           </div>
         </div>
         <div class="right_user" v-if="item.userTye == 'me'">
@@ -38,10 +40,14 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
   import useStore from '@/store';
-  // import type { ElScrollbar } from 'element-plus'
-
+  import type { ElScrollbar } from 'element-plus'
+  const srcList = [
+  'https://img1.baidu.com/it/u=3709586903,1286591012&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500',
+  'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
+  'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
+  'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
+]
   const Store = ref(useStore())
-
   const chatLog = ref<any>([])
   chatLog.value = [
     {

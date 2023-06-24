@@ -30,20 +30,20 @@
                         </div>
                         <el-scrollbar class="w" height="50vh">
                             <div class="template_list" @click="template_election(index)"
-                                :class="Store.counter.themeMode ? 'zt_night' : ''" v-for="(item, index) in 100"
+                                :class="Store.counter.themeMode ? 'zt_night' : ''" v-for="(item, index) in Template_list"
                                 :key="index">
                                 <div class="mr10 tc" style="width:40px;">
-                                    {{ index + 1 }}
+                                    {{ item.id }}
                                 </div>
                                 <div class="w mr20">
-                                    你好啊{{ item }}
+                                    {{ item.cn }}
                                 </div>
                                 <div>
                                     <div class="mb10">
                                         <el-button type="success" size="small" class="f14">编辑</el-button>
                                     </div>
                                     <div>
-                                        <el-button type="primary" @click="template_del" size="small" color="#ff3366"
+                                        <el-button type="primary" @click.stop="template_del" size="small" color="#ff3366"
                                             class="f14">删除</el-button>
                                     </div>
                                 </div>
@@ -56,7 +56,8 @@
         </div>
         <div class="ztInputDiv">
             <el-input v-model="input1" :autosize="{ minRows: 1, maxRows: 4 }" :show-word-limit="false"
-                class="not_textarea_css w mr10" type="textarea" placeholder="输入消息" clearable :minlength="5000" />
+                class="not_textarea_css w mr10" type="textarea" placeholder="输入消息" clearable :minlength="5000"
+                @keyup.enter="onEnter" />
 
             <el-popover placement="top-end" :show-arrow="false" :offset="25" :width="50 + '%'" trigger="click"
                 :popper-style="zdy_popover">
@@ -67,10 +68,8 @@
                     <Emoji v-model="input1" @add="addEmoji($event)" @delete="deleteEmoji()" />
                 </div>
             </el-popover>
-
-
         </div>
-        <el-image style="width: 30px;" :src="filter.getFile('send.png')" fit="cover" />
+        <el-image style="width: 30px;" class="crpr" :src="filter.getFile('send.png')" fit="cover" @click="sendF" />
     </div>
 </template>
 
@@ -79,19 +78,32 @@ import { ref, watch } from "vue";
 import useStore from '@/store';
 import { ElMessageBox } from 'element-plus'
 import useCurrentInstance from "@/utils/useCurrentInstance";
+import Mock from 'mockjs';
 const { proxy } = useCurrentInstance();
 const global = proxy
 const Store = ref(useStore())
 const template_visible = ref(false)
 const input1 = ref('')
 const zdy_popover = ref({})
-zdy_popover.value = {
-    backgroundColor: '#1D1E22',
-    border: 0,
-    minWidth: '0',
+
+let Mockdata = Mock.mock({
+    'list|100': [{
+        'id|+1': 1,
+        time: "@datetime(yyyy-MM-dd HH:mm:ss)",
+        cn: "@ctitle",
+    }],
+})
+const Template_list = ref<any>(Mockdata.list)
+
+
+watch(() => Store.value.counter.themeMode, () => {
+    zdy_popoverf()
 }
-watch(() => Store.value.counter.themeMode, (newVal) => {
-    if (newVal) {
+);
+
+
+const zdy_popoverf = () => {
+    if (Store.value.counter.themeMode) {
         zdy_popover.value = {
             backgroundColor: '#1D1E22',
             border: 0,
@@ -105,7 +117,19 @@ watch(() => Store.value.counter.themeMode, (newVal) => {
         }
     }
 }
-);
+zdy_popoverf()
+
+const onEnter = (event: any) => {
+    if (event.shiftKey) {
+        return;
+      }
+      sendF()
+}
+
+const sendF = () => {
+    input1.value = ''
+}
+
 
 const addEmoji = (val: any) => {
     // input1.value += global.$string2emoji(val) 
@@ -118,11 +142,10 @@ const deleteEmoji = () => {
     }
 }
 
-const template_election = (_index: any) => {
+const template_election = (index: any) => {
     //模版选择的某一项
     template_visible.value = false
-    input1.value = '你好啊'
-
+    input1.value = Template_list.value[index].cn
 }
 const template_del = () => {
     //模版列表删除
@@ -202,6 +225,7 @@ const template_del = () => {
         background-color: #1d1e22;
         color: #ffffff;
     }
+
     .ztInputDiv {
         background-color: #141517;
     }
