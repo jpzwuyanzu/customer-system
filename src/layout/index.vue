@@ -72,7 +72,7 @@
       </a-layout-content>
 
       <a-layout-footer :style="footerStyle" class="bgfff">
-       <BottomInput/>
+        <BottomInput />
       </a-layout-footer>
     </a-layout>
     <!-- animate__fadeOut -->
@@ -90,6 +90,14 @@ import BottomInput from './BottomInput.vue'
 import { removeStorage, timeDisplayMode } from '@/utils/common'
 import { ElNotification, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { sendMessage } from '@/utils/socket';
+
+const iosend = () => {
+  //发送
+  sendMessage('Hello, Socket.IO!');
+}
+iosend()
+
 const appRouter = useRouter();
 const Store = useStore()
 const pinia_counter = ref(Store.counter)
