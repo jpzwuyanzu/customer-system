@@ -1,5 +1,5 @@
 <template>
-  <el-scrollbar :wrap-style="{ width: '100%' }">
+  <el-scrollbar :wrap-style="{ width: '100%' }" :class="Store.counter.themeMode ? 'zt_night' : ''">
     <el-affix :offset="0">
       <div style="padding:16px;z-index: 2;" :class="Store.counter.themeMode ? 'zt_night' : 'bgfff'">
         <el-input v-model="input1" placeholder="搜索" class="zdy_input" clearable :prefix-icon="Search" :minlength="50" />
@@ -150,6 +150,9 @@ const del = (index: any) => {
 
 </script>
 <style lang="scss" scoped>
+.zt_night .chatlist:hover {
+  background: #333;
+}
 .chatlist {
   cursor: pointer;
   padding: 12px;
