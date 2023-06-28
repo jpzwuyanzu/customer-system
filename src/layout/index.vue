@@ -91,7 +91,7 @@ import { removeStorage, timeDisplayMode } from '@/utils/common'
 import { ElNotification, ElMessageBox } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { sendMessage } from '@/utils/socket';
-
+ 
 const iosend = () => {
   //发送
   sendMessage('Hello, Socket.IO!');

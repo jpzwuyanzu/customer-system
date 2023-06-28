@@ -1,13 +1,13 @@
 import { io } from 'socket.io-client';
 
-const socket = io('https://web2.loggi.vip', {
-    transports: ['websocket'], // 指定传输方式，如WebSocket
-    autoConnect: true, // 是否自动连接
-    reconnection: true, // 是否自动重新连接
-    reconnectionAttempts: 3, // 重新连接尝试次数
-    reconnectionDelay: 1000, // 重新连接延迟时间（毫秒）
-    query: { token: 'your-token' }, // 自定义查询参数
-  });
+const socket = io('wss://web2.loggi.vip', {
+  transports: ['websocket', 'polling'],// 指定传输方式，如WebSocket
+  autoConnect: true, // 是否自动连接
+  reconnection: true, // 是否自动重新连接
+  reconnectionAttempts: 1, // 重新连接尝试次数
+  reconnectionDelay: 1000, // 重新连接延迟时间（毫秒）
+  query: { path: '/wss/socket.io/' }, // 自定义查询参数
+});
 
 socket.on('connect', () => {
   console.log('已连接到 Socket.IO 服务器');
