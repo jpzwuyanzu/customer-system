@@ -11,6 +11,7 @@ NProgress.configure({ showSpinner: false })
 const LayOut = () => import('../layout/index.vue')
 const Login = () => import('../views/Login/index.vue')
 const Chat = () => import('../views/Chat/index.vue')
+const Setting =  () => import('../views/Setting/index.vue')
 const NotFound = () => import('../views/NotFound/notFound.vue')
 
 
@@ -27,15 +28,18 @@ const routes: any = [
         component: Chat,
         meta: {
           isAuth: true,
-          title: '首页',
-          keepalive: false,
-          breadList: [
-            {
-              title: 'DashBoard',
-              redirectPath: '/chat',
-              comName: 'chat'
-            }
-          ]
+          title: '客服',
+          keepalive: false
+        }
+      },
+      {
+        path: '/Setting',
+        name: 'setting',
+        component: Setting,
+        meta: {
+          isAuth: true,
+          title: '设置',
+          keepalive: false
         }
       }
     ]
