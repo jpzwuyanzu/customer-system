@@ -37,7 +37,7 @@
         </el-popover>
       </div>
     </div>
-    <div style="width: 252px;" class="LeftSide_bgfff">
+    <div style="min-width: 252px;" class="LeftSide_bgfff">
       <LeftSide />
     </div>
     <a-layout>
@@ -234,6 +234,7 @@ const footerStyle: any = {
   background-color: #f7f8fc;
   overflow: hidden;
   overflow-x: hidden;
+  min-width: 350px;
 }
 
 
@@ -283,26 +284,18 @@ const footerStyle: any = {
   }
 }
 
-
-
-
-
 .nav_left {
   text-align: center;
   position: relative;
   padding: 40px 0;
-  width: 70px;
+  min-width: 70px;
   background-color: #E9E9ED;
-
   .my_avatar {
     position: absolute;
     bottom: 20px;
     left: 0;
     width: 100%;
     text-align: center;
-
-
-
   }
 }
 
