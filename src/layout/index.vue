@@ -56,7 +56,6 @@
             :src="filter.getFile('Calendar_on.png')" fit="cover" />
         </div>
       </a-layout-header>
-
       <a-layout-content class="cn_color">
         <!-- 路由缓存需要缓存的组件 -->
         <router-view v-slot="{ Component }" :key="$route.fullPath">
@@ -147,12 +146,17 @@ const goout = () => {
 onMounted(() => {
   zdy_popoverf()
   //来消息的提示
-  let tipsTxt: any = '<div class="rowC"><div class="mr10"><img style="width:50px" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" /></div><div><div class="f16 fw"> 天使爱美丽</div><div class="f12"> 请等一哈，我查一下啊</div></div></div>';
-  (ElNotification as any)({
-    dangerouslyUseHTMLString: true,
-    message: tipsTxt,
-    duration: 500000,
-    onClick: (event: any) => handleClick(event),
+  // let tipsTxt: any = '<div class="rowC"><div class="mr10"><img style="width:50px" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" /></div><div><div class="f16 fw"> 天使爱美丽</div><div class="f12"> 请等一哈，我查一下啊</div></div></div>';
+  // (ElNotification as any)({
+  //   dangerouslyUseHTMLString: true,
+  //   message: tipsTxt,
+  //   duration: 500000,
+  //   onClick: (event: any) => handleClick(event),
+  // })
+  ElNotification({
+    title: '系统通知',
+    message: '您收到一条消息',
+    duration: 5000,
   })
 })
 
