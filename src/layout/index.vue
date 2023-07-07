@@ -160,10 +160,10 @@ onMounted(() => {
   })
 })
 
-const handleClick = (event: any) => {
-  var notificationEl = event.target.closest('.el-notification');
-  console.log(notificationEl);
-};
+// const handleClick = (event: any) => {
+//   var notificationEl = event.target.closest('.el-notification');
+//   console.log(notificationEl);
+// };
 
 // const handleSelect = (key: string, keyPath: string[]) => {
 //   console.log(key, keyPath)

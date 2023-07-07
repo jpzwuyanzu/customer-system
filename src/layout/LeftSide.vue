@@ -30,6 +30,9 @@
                 <div class="tipsnum" v-if="item.tipsnum != 0">
                   {{ item.tipsnum }}
                 </div>
+                <el-icon style="margin-left: 5px;" v-if="item.istop">
+                  <Upload />
+                </el-icon>
               </div>
             </div>
           </div>
@@ -83,7 +86,7 @@ let Mockdata = Mock.mock({
     news: "@ctitle",
     'tipsnum|1-100': 0,
     rightprevent: false,
-    istop:false,
+    istop: false,
   }],
 })
 let contacts = ref<any>(Mockdata.list)
@@ -112,6 +115,7 @@ const rightClick = (index: any) => {
   return contacts.value[index].rightprevent = true
 }
 const topping = (index: any) => {
+  //置顶
   contacts.value[index].istop = true
   let obj = contacts.value[index]
   contacts.value.splice(index, 1);
@@ -120,7 +124,27 @@ const topping = (index: any) => {
 }
 
 const offTopping = (index: any) => {
-  contacts.value[index].istop = false
+  //取消置顶
+  let top_arr = [] //置顶的数组
+  let not_top_arr = [] //没有置顶的数组
+  let obj = contacts.value[index] //被取消置顶的
+  obj.istop = false
+  contacts.value.splice(index, 1); //删除取消置顶的
+  // contacts.value.unshift(obj)
+  for (let i in contacts.value) {
+    let arr = contacts.value[i]
+    if (arr.istop) {
+      top_arr.push(arr)
+    }
+  }
+  for (let i in contacts.value) {
+    let arr = contacts.value[i]
+    if (!arr.istop) {
+      not_top_arr.unshift(arr)
+    }
+  }
+  not_top_arr.unshift(obj)
+  contacts.value = [...top_arr, ...not_top_arr]
   closeright()
 }
 
@@ -132,7 +156,7 @@ const read = (index: any) => {
 const del = (index: any) => {
   (ElMessageBox as any)({
     title: '提示',
-    message: '您确定要删除与 ‘'+contacts.value[index].name+'’ 所有的历史对话记录吗？',
+    message: '您确定要删除与 ‘' + contacts.value[index].name + '’ 所有的历史对话记录吗？',
     showCancelButton: true,
     confirmButtonText: '确认',
     cancelButtonText: '取消',
@@ -153,6 +177,7 @@ const del = (index: any) => {
 .zt_night .chatlist:hover {
   background: #333;
 }
+
 .chatlist {
   cursor: pointer;
   padding: 12px;
@@ -213,5 +238,4 @@ const del = (index: any) => {
     background-color: #F2F2F3;
     border-radius: 5px;
   }
-}
-</style>
+}</style>
