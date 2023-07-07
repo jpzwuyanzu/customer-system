@@ -9,8 +9,11 @@ let win: BrowserWindow | null
 const createWindow = () => {
   win = new BrowserWindow({
     // 是否隐藏菜单，默认 false
-    width: 1000,
-    height: 650,
+    //设置窗口大小
+    width: 1200,
+    minWidth:1000,
+    height:850,
+    minHeight:650,
     // autoHideMenuBar: true,
     //允许html页面上的javascipt代码访问nodejs 环境api代码的能力（与node集成的意思）
     webPreferences: {
