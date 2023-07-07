@@ -37,7 +37,7 @@
         </el-popover>
       </div>
     </div>
-    <div style="min-width: 252px;" class="LeftSide_bgfff">
+    <div style="min-width: 252px;max-width: 252px;" class="LeftSide_bgfff">
       <LeftSide />
     </div>
     <a-layout>

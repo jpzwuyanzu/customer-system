@@ -24,7 +24,7 @@
                 </div>
               </div>
               <div class="between">
-                <div class="f12 svh cr666 mr5" style="width: 1000%;">
+                <div class="f12 svh cr666 mr5" style="width: 100%;">
                   {{ item.news }}
                 </div>
                 <div class="tipsnum" v-if="item.tipsnum != 0">
@@ -102,6 +102,7 @@ const closeright = () => {
 const selectContacts = (_obj: any, index: any) => {
   selec_index.value = index
   Store.value.counter.switch_LeftSideObj(contacts.value[index])
+  contacts.value[index].tipsnum = 0
   closeright()
 }
 
