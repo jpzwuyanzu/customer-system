@@ -16,9 +16,9 @@
         </a-form-item>
         <a-form-item style="width: 100%">
           <div class="loginBrn_part">
-            <a-button type="primary" v-preventReClick="2000" style="font-family: PingFangSC;font-size:16px;background-color:#296dfe;width: 374px;  height: 56px;
-            " @click.prevent="loginNow">立刻登录</a-button>
-            <!-- <a-button style="margin-left: 10px" @click="resetFields">Reset</a-button> -->
+            <el-button type="primary" :loading="loading"
+              style="font-family: PingFangSC;font-size:16px;background-color:#296dfe;width: 374px;  height: 56px;"
+              @click="loginNow">立刻登录</el-button>
           </div>
         </a-form-item>
         <a-form-item class="tc">
@@ -42,7 +42,7 @@ import { useRouter } from 'vue-router'
 const appRouter = useRouter();
 const useForm = Form.useForm;
 const checked = ref(true)
-
+const loading = ref(false)
 let modelRef = reactive<ILogin>({
   username: '',
   password: '',
@@ -74,16 +74,19 @@ const ruleRef = reactive<any>({
     }
   ]
 })
-
 const { validate, validateInfos } = useForm(modelRef, ruleRef);
 const loginNow = async () => {
+  loading.value = true
   setStorage('local', 'token', '123132')
   if (checked.value) {
     setCookieItem('user_pwd', JSON.stringify(modelRef))
   } else {
     setCookieItem('user_pwd', '')
   }
-  appRouter.push('/')
+  setTimeout(function () {
+    loading.value = false
+    appRouter.push('/')
+  }, 1000)
   // try {
   //   const values = await validate()
   //   const resp = await appStore.dispatch('user/saveUserInfoAction', toRaw(modelRef));
